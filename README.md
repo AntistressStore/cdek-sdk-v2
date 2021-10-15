@@ -12,7 +12,7 @@
 
 Вопросы по интеграции вашим php \ Laravel вебсайтом, crm [написать руководителю](https://antistress.store/about).
 
-Вопросы по работе sdk [телеграмм](https://t.me/joinchat/VJCqsmpig_Y1NmU6).
+Вопросы по работе sdk [телеграмм](https://t.me/antistress_store_cdek_sdk_v2).
 
 Список возможностей и содержание SDK:
 
