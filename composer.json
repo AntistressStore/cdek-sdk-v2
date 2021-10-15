@@ -1,0 +1,48 @@
+{
+  "name": "antistress-store/cdek-sdk-v2",
+  "type": "library",
+  "description": "PHP SDK для API v2.0 от сервиса интеграции компании СДЭК",
+  "keywords": [
+    "CDEK",
+    "cdek sdk",
+    "delivery",
+    "СДЭК",
+    "служба доставки",
+    "v2.0",
+    "cdek api v2",
+    "cdek интеграция"
+  ],
+  "homepage": "https://antistress.store",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Sergey Gusev",
+      "email": "head@antistress.store",
+      "homepage": "https://antistress.store",
+      "role": "Creator"
+    }
+  ],
+  "require": {
+    "php": ">=7.2.5",
+    "ext-json": "*",
+    "guzzlehttp/guzzle": ">=7.3"
+  },
+  "conflict": {},
+  "config": {
+    "sort-packages": true
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "v1"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "AntistressStore\\CdekSDK2\\": "src/" 
+    }
+  },
+  "support": {
+    "issues": "https://github.com/AntistressStore/cdek-sdk-v2/issues",
+    "docs": "https://github.com/AntistressStore/cdek-sdk-v2/blob/master/README.md"
+  }
+}
