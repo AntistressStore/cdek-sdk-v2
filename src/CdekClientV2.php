@@ -9,9 +9,10 @@
 
 namespace AntistressStore\CdekSDK2;
 
+use AntistressStore\CdekSDK2\Entity\Requests\Check;
 use AntistressStore\CdekSDK2\Entity\Requests\{Agreement, Barcode, DeliveryPoints, Intakes, Invoice, Location, Order, Tariff, Webhooks};
-use AntistressStore\CdekSDK2\Entity\Responses\PaymentResponse;
 use AntistressStore\CdekSDK2\Entity\Responses\{AgreementResponse, CitiesResponse, DeliveryPointsResponse, EntityResponse, IntakesResponse, OrderResponse, PrintResponse, RegionsResponse, TariffListResponse, TariffResponse};
+use AntistressStore\CdekSDK2\Entity\Responses\{CheckResponse, PaymentResponse};
 use AntistressStore\CdekSDK2\Exceptions\{CdekV2AuthException, CdekV2RequestException};
 use GuzzleHttp\Client as GuzzleClient;
 use Psr\Http\Message\StreamInterface;
@@ -128,7 +129,7 @@ final class CdekClientV2
 
         $headers['Authorization'] = 'Bearer '.$this->token;
 
-        if (!empty($params) && is_object($params)) {
+        if ( ! empty($params) && is_object($params)) {
             $params = $params->prepareRequest();
         }
 
@@ -189,7 +190,7 @@ final class CdekClientV2
             $this->token = $token_info->access_token ?? '';
             $this->expire = $token_info->expires_in ?? 0;
             $this->expire = (int) (time() + $this->expire - 10);
-            if (!empty($this->memory_save_fu)) {
+            if ( ! empty($this->memory_save_fu)) {
                 $this->saveToken($this->memory_save_fu);
             }
 
@@ -210,10 +211,10 @@ final class CdekClientV2
 
         // Если не передан верный сохраненный массив данных для авторизации, функция возвратит false
 
-        if (!isset($check_memory['account_type'])
+        if ( ! isset($check_memory['account_type'])
         || empty($check_memory)
-        || !isset($check_memory['expires_in'])
-        || !isset($check_memory['access_token'])) {
+        || ! isset($check_memory['expires_in'])
+        || ! isset($check_memory['access_token'])) {
             return false;
         }
 
@@ -226,7 +227,7 @@ final class CdekClientV2
             }
         }
 
-        return ($check_memory['expires_in'] > time() && !empty($check_memory['access_token']))
+        return ($check_memory['expires_in'] > time() && ! empty($check_memory['access_token']))
             ? $this->setToken($check_memory['access_token'])
             : false;
     }
@@ -326,7 +327,7 @@ final class CdekClientV2
             );
             throw new CdekV2RequestException('От API CDEK при вызове метода '.$method.' получена ошибка: '.$message, $response->getStatusCode());
         }
-        if ($response->getStatusCode() > 202 && !isset($apiResponse['requests'][0]['errors'])) {
+        if ($response->getStatusCode() > 202 && ! isset($apiResponse['requests'][0]['errors'])) {
             throw new CdekV2RequestException('Неверный код ответа от сервера CDEK при вызове метода 
              '.$method.': '.$response->getStatusCode(), $response->getStatusCode());
         }
@@ -341,7 +342,7 @@ final class CdekClientV2
      */
     public function getRegions(?Location $filter = null)
     {
-        $params = (!empty($filter)) ? $filter->regions() : [];
+        $params = ( ! empty($filter)) ? $filter->regions() : [];
         $resp = [];
         $response = $this->apiRequest('GET', Constants::REGIONS_URL, $params);
 
@@ -359,7 +360,7 @@ final class CdekClientV2
      */
     public function getCities(?Location $filter = null)
     {
-        $params = (!empty($filter)) ? $filter->cities() : [];
+        $params = ( ! empty($filter)) ? $filter->cities() : [];
 
         $resp = [];
         $response = $this->apiRequest('GET', Constants::CITIES_URL, $params);
@@ -447,9 +448,11 @@ final class CdekClientV2
      */
     public function deleteOrder(string $uuid)
     {
-        new EntityResponse($this->apiRequest('DELETE', Constants::ORDERS_URL.'/'.$uuid));
+        $request = new EntityResponse($this->apiRequest('DELETE', Constants::ORDERS_URL.'/'.$uuid));
 
-        return false;
+        if ($request->getRequests()[0]->getState() != 'INVALID') {
+            return false;
+        }
     }
 
     /**
@@ -627,6 +630,16 @@ final class CdekClientV2
     public function getPayments(string $date): PaymentResponse
     {
         return new PaymentResponse($this->apiRequest('GET', 'payment', ['date' => $date]));
+    }
+
+    /**
+     * Метод используется для получения информации о чеке по заказу или за выбранный день.
+     *
+     * @param Check $check - данные о заказах по которым нужно получить чеки
+     */
+    public function getChecks(Check $check): CheckResponse
+    {
+        return new CheckResponse($this->apiRequest('GET', 'check', $check));
     }
 
     /**

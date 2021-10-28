@@ -261,6 +261,7 @@ class Constants
         'work_time_list' => 'WorkTimeList',
         'requests' => 'Requests',
         'phones' => 'Phone',
+        'check_info' => 'Check',
     ];
 
     public const SERVICE_CODES = [

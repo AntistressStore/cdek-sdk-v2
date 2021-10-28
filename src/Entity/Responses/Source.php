@@ -27,7 +27,7 @@ class Source
                 }
             }
             foreach ($properties as $key => $value) {
-                if (!property_exists($this, $key)) {
+                if ( ! property_exists($this, $key)) {
                     continue;
                 }
                 if (isset(Constants::SDK_CLASSES[$key])) {
@@ -35,7 +35,7 @@ class Source
                         .Constants::SDK_CLASSES[$key].'Response';
                     $this->{$key} = $class_name::create($value);
                 } elseif (isset(Constants::SDK_ARRAY_RESPONSE_CLASSES[$key])) {
-                    foreach ($value as $k => $v) {
+                    foreach ($value as $v) {
                         $class_name = '\\AntistressStore\\CdekSDK2\\Entity\\Responses\\'.
                             Constants::SDK_ARRAY_RESPONSE_CLASSES[$key].'Response';
                         $this->{$key}[] = $class_name::create($v);

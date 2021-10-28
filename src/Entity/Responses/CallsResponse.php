@@ -2,8 +2,6 @@
 
 namespace AntistressStore\CdekSDK2\Entity\Responses;
 
-use AntistressStore\CdekSDK2\Entity\Requests\Source;
-
 /**
  * Class CallsResponse информация о звонках.
  */

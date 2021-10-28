@@ -17,7 +17,7 @@ class EntityResponse extends Source
     /**
      * Идентификатор запроса в ИС СДЭК.
      *
-     * @var array
+     * @var RequestsResponse[]
      */
     protected $requests;
 
@@ -31,7 +31,7 @@ class EntityResponse extends Source
     /**
      * Получить идентификатор запроса в ИС СДЭК.
      *
-     * @return string
+     * @return RequestsResponse[]
      */
     public function getRequests()
     {
@@ -39,7 +39,7 @@ class EntityResponse extends Source
     }
 
     /**
-     * Get сущность и ее идентификатор.
+     * Получить сущность и ее идентификатор.
      *
      * @return string
      */
@@ -49,9 +49,9 @@ class EntityResponse extends Source
     }
 
     /**
-     * Get сущность и ее идентификатор.
+     * Получить массив сущности.
      *
-     * @return string
+     * @return array
      */
     public function getEntity()
     {
