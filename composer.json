@@ -37,5 +37,8 @@
   "support": {
     "issues": "https://github.com/AntistressStore/cdek-sdk-v2/issues",
     "docs": "https://github.com/AntistressStore/cdek-sdk-v2/blob/master/README.md"
+  },
+  "require-dev": {
+    "php-parallel-lint/php-parallel-lint": "^1.3"
   }
 }
