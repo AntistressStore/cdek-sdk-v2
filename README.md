@@ -94,7 +94,7 @@
 | [Подписка на вебхуки (Webhooks)](#подписка-на-вебхуки-webhooks)                                                | `setWebhooks`              | `webhooks`     | EntityResponse           |
 ****
 ## История
-v1.0.2 - Добавлена процедура проверки синтаксиса. За исправление спасибо [sanmai Alexey Kopytko] (https://github.com/sanmai)
+v1.0.2 - Добавлена процедура проверки синтаксиса. За исправление спасибо [sanmai Alexey Kopytko](https://github.com/sanmai)
 v1.0.1 - Добавлен Метод получения чеков
 
 ## Требования
