@@ -36,7 +36,7 @@ class Order extends Source
 
     public function __construct()
     {
-        $this->developer_key = 'antistress-store/cdek-sdk-v2';
+        $this->developer_key = 'UZ$NAOr6waZIvjbXtKR2=&FKG1XsVnhK';
     }
 
     /**
@@ -50,20 +50,6 @@ class Order extends Source
     public function setNumber(string $number)
     {
         $this->number = $number;
-
-        return $this;
-    }
-
-    /**
-     * Устанавливает ключ разработчика.
-     *
-     * @param string $developer_key Ключ разработчика
-     *
-     * @return self
-     */
-    public function setDeveloperKey(string $developer_key)
-    {
-        $this->developer_key = $developer_key;
 
         return $this;
     }

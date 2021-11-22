@@ -2,3 +2,4 @@
 .vscode/
 .phan/
 README.html
+composer.json
