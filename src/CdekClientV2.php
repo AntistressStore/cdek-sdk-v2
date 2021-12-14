@@ -119,9 +119,9 @@ final class CdekClientV2
         }
 
         // Проверяем является ли запрос на файл pdf
-        $is_pdf_file_request = str_contains($method, '.pdf');
+        $is_pdf_file_request = strpos($method, '.pdf');
 
-        if ($is_pdf_file_request) {
+        if ($is_pdf_file_request !== false) {
             $headers['Accept'] = 'application/pdf';
         } else {
             $headers['Accept'] = 'application/json';
@@ -150,7 +150,7 @@ final class CdekClientV2
         // Если запрос на файл pdf был успешным сразу отправляем его в ответ
         if ($is_pdf_file_request) {
             if ($response->getStatusCode() == 200) {
-                if (str_contains($response->getHeader('Content-Type')[0], 'application/pdf')) {
+                if (strpos($response->getHeader('Content-Type')[0], 'application/pdf') !== false) {
                     return $response->getBody();
                 }
             }
