@@ -111,6 +111,20 @@ class DeliveryPointsResponse extends Source
     protected $fulfillment;
 
     /**
+     * Номера телефона.
+     *
+     * @var array
+     */
+    protected $phones;
+
+    /**
+     * Тип пункта выдачи.
+     *
+     * @var array
+     */
+    protected $type;
+
+    /**
      * Получить параметр - название ПВЗ.
      *
      * @return string|null
@@ -252,5 +266,25 @@ class DeliveryPointsResponse extends Source
     public function getCode()
     {
         return $this->code;
+    }
+
+    /**
+     * Получить номера телефона
+     *
+     * @return PhoneResponse[]
+     */
+    public function getPhones()
+    {
+        return $this->phones;
+    }
+
+    /**
+     * Получить тип пункта выдачи
+     *
+     * @return array
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }
