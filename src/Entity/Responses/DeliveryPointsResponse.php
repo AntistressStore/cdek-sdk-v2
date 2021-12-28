@@ -120,7 +120,7 @@ class DeliveryPointsResponse extends Source
     /**
      * Тип пункта выдачи.
      *
-     * @var array
+     * @var string|null
      */
     protected $type;
 
@@ -281,7 +281,7 @@ class DeliveryPointsResponse extends Source
     /**
      * Получить тип пункта выдачи
      *
-     * @return array
+     * @return string|null
      */
     public function getType()
     {
