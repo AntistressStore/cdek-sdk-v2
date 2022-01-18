@@ -239,9 +239,9 @@ class Order extends Source
      *
      * @return self
      */
-    public function setDeliveryRecipientCost($value, $vat_sum = null, $vat_rate = null)
+    public function setDeliveryRecipientCost(float $value = 0.0, $vat_sum = null, $vat_rate = null)
     {
-        if (!empty($value)) {
+        if (is_float($value)) {
             $args = \get_defined_vars();
             $this->delivery_recipient_cost = Money::express($args);
         }
