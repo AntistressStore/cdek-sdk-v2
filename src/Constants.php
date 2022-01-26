@@ -212,6 +212,7 @@ class Constants
         'code' => '',
         'city' => '',
         'size' => '',
+        'page' => '',
         'lang' => '',
     ];
 
