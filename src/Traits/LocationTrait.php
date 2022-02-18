@@ -54,6 +54,15 @@ trait LocationTrait
      * @var string
      */
     protected $country_code;
+    
+    /**
+     * Название страны
+     *
+     * @example Россия, США
+     *
+     * @var string
+     */
+    protected $country;    
 
     /**
      * Название региона.
