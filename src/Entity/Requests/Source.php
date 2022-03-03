@@ -45,7 +45,9 @@ class Source implements JsonSerializable
                 }
             } else {
                 $a = \get_object_vars($this->{$key});
-                $dynamic[$key] = \array_filter($a);
+                $dynamic[$key] = \array_filter($a, function ($value) {
+                    return $value !== null;
+                });
             }
         }
 
