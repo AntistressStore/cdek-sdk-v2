@@ -94,6 +94,7 @@
 | [Подписка на вебхуки (Webhooks)](#подписка-на-вебхуки-webhooks)                                                | `setWebhooks`              | `webhooks`     | EntityResponse           |
 ****
 ## История
+- v1.0.6 - Добавили delivery_recipient_cost теперь может быть нулевое значение. Спасибо [AndreyArtamonov](https://github.com/AndreyArtamonov)
 - v1.0.5 - Добавили новые свойства в Response по Пунктам выдачи. Спасибо [Mexaanik](https://github.com/Mexaanik)
 - v1.0.4 - Исправлена совместимость с php 7. За исправление спасибо [Anton Yadokhin](https://github.com/yadokhin)
 - v1.0.3 - Добавлен утвержденный со СДЭК ключ разработчика.
