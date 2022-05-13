@@ -656,7 +656,7 @@ final class CdekClientV2
      * Информация о подписке webhook.
      *
      */
-    public function getWebhooks(?string $uuid): EntityResponse
+    public function getWebhooks(?string $uuid = null): EntityResponse
     {
         if ($uuid) {
             return new EntityResponse($this->apiRequest('GET', Constants::WEBHOOKS_URL.'/'.$uuid));
