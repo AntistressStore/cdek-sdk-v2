@@ -651,4 +651,31 @@ final class CdekClientV2
     {
         return new EntityResponse($this->apiRequest('POST', Constants::WEBHOOKS_URL, $webhooks));
     }
+
+    /**
+     * Информация о слушателях webhook.
+     *
+     */
+    public function getWebhooks(): EntityResponse
+    {
+        return new EntityResponse($this->apiRequest('GET', Constants::WEBHOOKS_URL));
+    }
+
+    /**
+     * Информация о слушателе webhook.
+     *
+     */
+    public function getWebhook(string $uuid): EntityResponse
+    {
+        return new EntityResponse($this->apiRequest('GET', Constants::WEBHOOKS_URL.'/'.$uuid));
+    }
+
+    /**
+     * Удаление слушателя webhook.
+     *
+     */
+    public function deleteWebhooks(string $uuid): EntityResponse
+    {
+        return new EntityResponse($this->apiRequest('DELETE', Constants::WEBHOOKS_URL.'/'.$uuid));
+    }
 }
