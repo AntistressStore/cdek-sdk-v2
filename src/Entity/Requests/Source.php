@@ -24,7 +24,7 @@ class Source implements JsonSerializable
         $entity_vars = $this->pattern ?? \get_object_vars($this);
 
         $dynamic = [];
-        // dd($entity_vars);
+        
         foreach ($entity_vars as $key => $val) {
             if (\is_null($this->{$key})) {
                 continue;
@@ -54,6 +54,7 @@ class Source implements JsonSerializable
         return $dynamic;
     }
 
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return \get_object_vars($this);

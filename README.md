@@ -140,7 +140,7 @@ composer require antistress-store/cdek-sdk-v2
 ```php
 $cdek_client = new \AntistressStore\CdekSDK2\CdekClientV2('TEST');
 ```
-Полнофункциональная "боевая" авторизация осуществляется с использованием логина и пароля для api.
+Полнофункциональная "боевая" авторизация осуществляется с использованием логина и пароля для api. Опционально можно устанавливать таймаут соединения 3 аргументом $timeout (по умолчанию 5.0), как на тестовом, так и на боевом аккаунте.
 ```php
 $cdek_client = new \AntistressStore\CdekSDK2\CdekClientV2($account, $secure);
 ```

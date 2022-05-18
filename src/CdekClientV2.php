@@ -75,14 +75,15 @@ final class CdekClientV2
      *
      *  @param $account - Логин Account в сервисе Интеграции
      *  @param $secure - Пароль Secure password в сервисе Интеграции
+     *  @param $timeout - Настройка клиента задающая общий тайм-аут запроса в секундах. При использовании 0 ждать бесконечно долго (поведение по умолчанию)
      *  @param $memory - Массив данных для сохранения\чтения токен
      */
-    public function __construct(string $account, ?string $secure = null)
+    public function __construct(string $account, ?string $secure = null, ?float $timeout = 5.0)
     {
         if ($account == 'TEST') {
             $this->http = new GuzzleClient([
                 'base_uri' => Constants::API_URL_TEST,
-                'timeout' => 5.0,
+                'timeout' => $timeout,
                 'http_errors' => false,
             ]);
             $this->account = Constants::TEST_ACCOUNT;
@@ -91,7 +92,7 @@ final class CdekClientV2
         } else {
             $this->http = new GuzzleClient([
                 'base_uri' => Constants::API_URL,
-                'timeout' => 5.0,
+                'timeout' => $timeout,
                 'http_errors' => false,
             ]);
             $this->account = $account;
@@ -654,7 +655,6 @@ final class CdekClientV2
 
     /**
      * Информация о слушателях webhook.
-     *
      */
     public function getWebhooks(): EntityResponse
     {
@@ -663,7 +663,6 @@ final class CdekClientV2
 
     /**
      * Информация о слушателе webhook.
-     *
      */
     public function getWebhook(string $uuid): EntityResponse
     {
@@ -672,7 +671,6 @@ final class CdekClientV2
 
     /**
      * Удаление слушателя webhook.
-     *
      */
     public function deleteWebhooks(string $uuid): EntityResponse
     {
