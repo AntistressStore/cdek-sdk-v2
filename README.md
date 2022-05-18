@@ -94,6 +94,11 @@
 | [Подписка на вебхуки (Webhooks)](#подписка-на-вебхуки-webhooks)                                                | `setWebhooks`              | `webhooks`     | EntityResponse           |
 ****
 ## История
+- v1.1 
++ Добавлены новые методы для работы с вебхуками Спасибо [lor08](https://github.com/lor08)  
++ Добавлены Позиции товаров в упаковке, параметр page при запросе городов Спасибо [Vladimir Noskov](https://github.com/kovspace)
++ Добавлены address_full в LocationResponse Спасибо [vaii](https://github.com/vaii)
+
 - v1.0.6 - Добавили delivery_recipient_cost теперь может быть нулевое значение. Спасибо [AndreyArtamonov](https://github.com/AndreyArtamonov)
 - v1.0.5 - Добавили новые свойства в Response по Пунктам выдачи. Спасибо [Mexaanik](https://github.com/Mexaanik)
 - v1.0.4 - Исправлена совместимость с php 7. За исправление спасибо [Anton Yadokhin](https://github.com/yadokhin)
