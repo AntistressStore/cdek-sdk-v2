@@ -89,6 +89,16 @@ trait PackageTrait
 
         return $this;
     }
+    
+    /**
+     * Возвращает позиции товаров в упаковке.
+     *
+     * @return array
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }    
 
     /**
      * Получить значение - общий вес (в граммах).
