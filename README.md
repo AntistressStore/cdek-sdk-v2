@@ -95,6 +95,7 @@
 ****
 ## История
 - v1.1 
++ Добавлена возможность изменять таймаут соединения.
 + Добавлены новые методы для работы с вебхуками Спасибо [lor08](https://github.com/lor08)  
 + Добавлены Позиции товаров в упаковке, параметр page при запросе городов Спасибо [Vladimir Noskov](https://github.com/kovspace)
 + Добавлены address_full в LocationResponse Спасибо [vaii](https://github.com/vaii)
