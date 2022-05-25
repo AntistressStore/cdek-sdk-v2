@@ -123,7 +123,7 @@ composer require antistress-store/cdek-sdk-v2
 ***
 ## Документация
 
-Пригодится справочная информация по [Протоколу обмену данными (v2.0)](https://confluence.cdek.ru/pages/viewpage.action?pageId=29923741)
+Пригодится справочная информация по [Протоколу обмену данными (v2.0)](https://api-docs.cdek.ru/29923741.html) 
 
 
 ***
