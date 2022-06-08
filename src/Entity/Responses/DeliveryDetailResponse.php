@@ -19,7 +19,11 @@ class DeliveryDetailResponse extends Source
     protected $payment_sum;
     /** @var array - Тип оплаты наложенного платежа получателем */
     protected $payment_info;
-
+    /** @var float - Стоимость доставки */
+    protected $delivery_sum;
+    /** @var float - Стоимость доставки с учетом дополнительных услуг.*/
+    protected $total_sum;
+    
     /**
      * Получает параметр - date.
      */
@@ -50,5 +54,25 @@ class DeliveryDetailResponse extends Source
     public function getPaymentInfo()
     {
         return $this->payment_info;
+    }
+
+    /**
+     * Get стоимость доставки.
+     *
+     * @return float
+     */
+    public function getDeliverySum()
+    {
+        return $this->delivery_sum;
+    }
+    
+    /**
+     * Get стоимость доставки с учетом дополнительных услуг.
+     *
+     * @return float
+     */
+    public function getTotalSum()
+    {
+        return $this->total_sum;
     }
 }
