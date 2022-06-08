@@ -12,8 +12,6 @@
 
 Вопросы по интеграции вашим php \ Laravel вебсайтом, crm [написать руководителю](https://antistress.store/about).
 
-Вопросы по работе sdk [телеграмм](https://t.me/antistress_store_cdek_sdk_v2).
-
 Список возможностей и содержание SDK:
 
 - [SDK для интеграции с API 2.0 CDEK от Antistress.Store®](#sdk-для-интеграции-с-api-20-cdek-от-antistressstore)
@@ -94,6 +92,7 @@
 | [Подписка на вебхуки (Webhooks)](#подписка-на-вебхуки-webhooks)                                                | `setWebhooks`              | `webhooks`     | EntityResponse           |
 ****
 ## История
+- v1.1.1 Обновили ссылку на документацию. Спасибо [Nikolay Lapay](https://github.com/iamwildtuna)
 - v1.1 
 + Добавлена возможность изменять таймаут соединения.
 + Добавлены новые методы для работы с вебхуками Спасибо [lor08](https://github.com/lor08)  
