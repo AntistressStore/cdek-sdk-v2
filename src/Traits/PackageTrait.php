@@ -21,6 +21,13 @@ trait PackageTrait
     protected $number;
 
     /**
+     * ID упаковки
+     *
+     * @var string
+     */
+    protected $package_id;
+
+    /**
      * Общий вес (в граммах).
      *
      * @var int
@@ -74,6 +81,24 @@ trait PackageTrait
         $this->number = $number;
 
         return $this;
+    }
+
+     /**
+     * Устанавливает ID упаковки
+     */
+    public function setPackageId(string $packageId): self
+    {
+        $this->package_id = $packageId;
+
+        return $this;
+    }
+
+    /**
+     * Получить ID упаковки
+     */
+    public function getPackageId(): ?string
+    {
+        return $this->package_id;
     }
 
     /**
