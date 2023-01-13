@@ -76,24 +76,25 @@ final class CdekClientV2
      *  @param $account - Логин Account в сервисе Интеграции
      *  @param $secure - Пароль Secure password в сервисе Интеграции
      *  @param $timeout - Настройка клиента задающая общий тайм-аут запроса в секундах. При использовании 0 ждать бесконечно долго (поведение по умолчанию)
+     *  @param $httpConfig - Дополнительные данные для конфигурации для GuzzleClient
      */
-    public function __construct(string $account, ?string $secure = null, ?float $timeout = 5.0)
+    public function __construct(string $account, ?string $secure = null, ?float $timeout = 5.0, array $httpConfig = [])
     {
         if ($account == 'TEST') {
-            $this->http = new GuzzleClient([
+            $this->http = new GuzzleClient(array_merge([
                 'base_uri' => Constants::API_URL_TEST,
                 'timeout' => $timeout,
                 'http_errors' => false,
-            ]);
+            ], $httpConfig));
             $this->account = Constants::TEST_ACCOUNT;
             $this->secure = Constants::TEST_SECURE;
             $this->account_type = 'TEST';
         } else {
-            $this->http = new GuzzleClient([
+            $this->http = new GuzzleClient(array_merge([
                 'base_uri' => Constants::API_URL,
                 'timeout' => $timeout,
                 'http_errors' => false,
-            ]);
+            ], $httpConfig));
             $this->account = $account;
             $this->secure = $secure;
             $this->account_type = 'COMBAT';
