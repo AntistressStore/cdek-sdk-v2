@@ -76,7 +76,6 @@ final class CdekClientV2
      *  @param $account - Логин Account в сервисе Интеграции
      *  @param $secure - Пароль Secure password в сервисе Интеграции
      *  @param $timeout - Настройка клиента задающая общий тайм-аут запроса в секундах. При использовании 0 ждать бесконечно долго (поведение по умолчанию)
-     *  @param $memory - Массив данных для сохранения\чтения токен
      */
     public function __construct(string $account, ?string $secure = null, ?float $timeout = 5.0)
     {
