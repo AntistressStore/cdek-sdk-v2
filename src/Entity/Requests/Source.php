@@ -9,10 +9,13 @@
 
 namespace AntistressStore\CdekSDK2\Entity\Requests;
 
+use AntistressStore\CdekSDK2\Traits\JsonSerializeTrait;
 use JsonSerializable;
 
 class Source implements JsonSerializable
 {
+    use JsonSerializeTrait;
+
     /**
      * Формирует массив параметров для запроса.
      * Удаляет пустые значения.
@@ -52,11 +55,5 @@ class Source implements JsonSerializable
         }
 
         return $dynamic;
-    }
-
-    #[\ReturnTypeWillChange]
-    public function jsonSerialize()
-    {
-        return \get_object_vars($this);
     }
 }
