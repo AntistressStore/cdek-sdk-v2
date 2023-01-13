@@ -10,9 +10,13 @@
 namespace AntistressStore\CdekSDK2\Entity\Responses;
 
 use AntistressStore\CdekSDK2\Constants;
+use AntistressStore\CdekSDK2\Traits\JsonSerializeTrait;
+use JsonSerializable;
 
-class Source
+class Source implements JsonSerializable
 {
+    use JsonSerializeTrait;
+
     /**
      * Формирует объект класса из ответа.
      *
