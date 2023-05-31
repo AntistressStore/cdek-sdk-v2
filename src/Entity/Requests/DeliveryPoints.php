@@ -38,6 +38,11 @@ class DeliveryPoints extends Location
     /** @var string|null */
     public $type;
 
+    /**
+     * @var array|string[]
+     */
+    protected $pattern;
+
     public function __construct()
     {
         $this->pattern = Constants::DELIVERY_POINTS_FILTER;
