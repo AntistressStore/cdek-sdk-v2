@@ -8,3 +8,4 @@ vendor
 .php-cs-fixer.cache
 composer.lock
 build
+.phpunit.cache
