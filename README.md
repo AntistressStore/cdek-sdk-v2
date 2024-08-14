@@ -228,6 +228,34 @@ $tariff_response = $cdek_client->calculateTariff($tariff); // TariffResponse
 ->getCurrency()
 ->getServices()
 ```
+
+Расчет стоимости тарифа + Страховка
+```php
+  $tariff = (new Tariff())
+            ->setCityCodes(172, 172)
+            ->setTariffCode(136)
+            ->setPackageWeight(500)
+            ->addServices(['INSURANCE' => 10000])
+        ;
+
+  $tariffResponce = $cdek_client->->calculateTariff($tariff);
+ 
+ //... При таких установках на выходе имеем рассчитанную суммы страховки, см  object = AntistressStore\CdekSDK2\Entity\Responses\ServicesResponse
+ 
+ $tariffResponce object = AntistressStore\CdekSDK2\Entity\Responses\TariffResponse
+    delivery_sum float = 130
+    period_min int = 8
+    period_max int = 12
+    weight_calc int = 500
+    total_sum float = 246
+    currency string = "RUB"
+  services array = array(1)
+   0 object = AntistressStore\CdekSDK2\Entity\Responses\ServicesResponse
+      sum float = 75
+      code string = "INSURANCE"
+      parameter null = null
+
+```
 ### Получение списка ПВЗ
 
 Устанавливаем нужные параметры. Отдаем объект в метод клиента. Метод при успешном запросе возвращает объект класса DeliveryPointsResponse, ниже представлен пример со всеми доступными методами.
