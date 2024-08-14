@@ -44,6 +44,7 @@
     "docs": "https://github.com/AntistressStore/cdek-sdk-v2/blob/master/README.md"
   },
   "require-dev": {
+    "php-parallel-lint/php-parallel-lint": "^1.4",
     "phpunit/phpunit": "^6||^7||^8|^9.5.10|^10.5"
   }
 }
