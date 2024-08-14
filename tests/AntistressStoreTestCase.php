@@ -12,7 +12,10 @@ use PHPUnit\Framework\TestCase;
  */
 class AntistressStoreTestCase extends TestCase
 {
-    protected CdekClientV2 $client;
+    /**
+     * @var CdekClientV2
+     */
+    protected $client;
 
     public function setCdekClient(): CdekClientV2
     {
