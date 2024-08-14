@@ -4,3 +4,7 @@
 README.html
 composer.json
 .gitconfig
+vendor
+.php-cs-fixer.cache
+composer.lock
+build
