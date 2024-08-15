@@ -54,3 +54,7 @@ jobs:
       - name: Parallel PHP Lint
         run: |
           vendor/bin/parallel-lint --exclude vendor .
+          
+      - name: PHP Unit tests
+        run: |
+          vendor/bin/phpunit
