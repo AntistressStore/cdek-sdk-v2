@@ -11,7 +11,7 @@ namespace AntistressStore\CdekSDK2;
 
 use AntistressStore\CdekSDK2\Entity\Requests\Check;
 use AntistressStore\CdekSDK2\Entity\Requests\{Agreement, Barcode, DeliveryPoints, Intakes, Invoice, Location, Order, Tariff, Webhooks};
-use AntistressStore\CdekSDK2\Entity\Responses\{AgreementResponse, CitiesResponse, DeliveryPointsResponse, EntityResponse, IntakesResponse, OrderResponse, PrintResponse, RegionsResponse, TariffListResponse, TariffResponse};
+use AntistressStore\CdekSDK2\Entity\Responses\{AgreementResponse, CitiesResponse, DeliveryPointsResponse, EntityResponse, IntakesResponse, OrderResponse, PrintResponse, RegionsResponse, TariffListResponse, TariffResponse, WebhookListResponse};
 use AntistressStore\CdekSDK2\Entity\Responses\{CheckResponse, PaymentResponse};
 use AntistressStore\CdekSDK2\Exceptions\{CdekV2AuthException, CdekV2RequestException};
 use GuzzleHttp\Client as GuzzleClient;
@@ -655,10 +655,19 @@ final class CdekClientV2
 
     /**
      * Информация о слушателях webhook.
+     * 
+     * @return WebhookListResponse[] Ответ
      */
     public function getWebhooks()
     {
-        return $this->apiRequest('GET', Constants::WEBHOOKS_URL);
+        $response = $this->apiRequest('GET', Constants::WEBHOOKS_URL);
+
+        $resp = [];
+        foreach ($response as $key => $value) {
+            $resp[] = new WebhookListResponse($value);
+        }
+
+        return $resp;
     }
 
     /**
