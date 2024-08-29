@@ -656,9 +656,9 @@ final class CdekClientV2
     /**
      * Информация о слушателях webhook.
      */
-    public function getWebhooks(): EntityResponse
+    public function getWebhooks()
     {
-        return new EntityResponse($this->apiRequest('GET', Constants::WEBHOOKS_URL));
+        return $this->apiRequest('GET', Constants::WEBHOOKS_URL);
     }
 
     /**
