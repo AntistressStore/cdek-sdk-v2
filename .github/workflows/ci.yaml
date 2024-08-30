@@ -59,4 +59,4 @@ jobs:
           
       - name: PHP Unit tests
         run: |
-          vendor/bin/phpunit
+          vendor/bin/phpunit --no-coverage
