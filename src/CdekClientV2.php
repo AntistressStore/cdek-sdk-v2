@@ -21,7 +21,8 @@ use AntistressStore\CdekSDK2\Entity\Responses\{
     PrintResponse,
     RegionsResponse,
     TariffListResponse,
-    TariffResponse
+    TariffResponse,
+    WebhookListResponse
 };
 use AntistressStore\CdekSDK2\Entity\Responses\{CheckResponse, PaymentResponse};
 use AntistressStore\CdekSDK2\Exceptions\{CdekV2AuthException, CdekV2RequestException};
@@ -633,10 +634,19 @@ final class CdekClientV2
 
     /**
      * Информация о слушателях webhook.
+     * 
+     * @return WebhookListResponse[] Ответ
      */
-    public function getWebhooks(): EntityResponse
+    public function getWebhooks(): array
     {
-        return new EntityResponse($this->apiRequest('GET', Constants::WEBHOOKS_URL));
+        $response = $this->apiRequest('GET', Constants::WEBHOOKS_URL);
+
+        $resp = [];
+        foreach ($response as $key => $value) {
+            $resp[] = new WebhookListResponse($value);
+        }
+
+        return $resp;
     }
 
     /**
