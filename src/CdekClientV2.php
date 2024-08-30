@@ -11,7 +11,18 @@ namespace AntistressStore\CdekSDK2;
 
 use AntistressStore\CdekSDK2\Entity\Requests\Check;
 use AntistressStore\CdekSDK2\Entity\Requests\{Agreement, Barcode, DeliveryPoints, Intakes, Invoice, Location, Order, Tariff, Webhooks};
-use AntistressStore\CdekSDK2\Entity\Responses\{AgreementResponse, CitiesResponse, DeliveryPointsResponse, EntityResponse, IntakesResponse, OrderResponse, PrintResponse, RegionsResponse, TariffListResponse, TariffResponse};
+use AntistressStore\CdekSDK2\Entity\Responses\{
+    AgreementResponse,
+    CitiesResponse,
+    DeliveryPointsResponse,
+    EntityResponse,
+    IntakesResponse,
+    OrderResponse,
+    PrintResponse,
+    RegionsResponse,
+    TariffListResponse,
+    TariffResponse
+};
 use AntistressStore\CdekSDK2\Entity\Responses\{CheckResponse, PaymentResponse};
 use AntistressStore\CdekSDK2\Exceptions\{CdekV2AuthException, CdekV2RequestException};
 use GuzzleHttp\Client as GuzzleClient;
@@ -73,10 +84,9 @@ final class CdekClientV2
     /**
      * Конструктор клиента Guzzle.
      *
-     *  @param $account - Логин Account в сервисе Интеграции
-     *  @param $secure - Пароль Secure password в сервисе Интеграции
-     *  @param $timeout - Настройка клиента задающая общий тайм-аут запроса в секундах. При использовании 0 ждать бесконечно долго (поведение по умолчанию)
-     *  @param $memory - Массив данных для сохранения\чтения токен
+     * @param $account - Логин Account в сервисе Интеграции
+     * @param $secure  - Пароль Secure password в сервисе Интеграции
+     * @param $timeout - Настройка клиента задающая общий тайм-аут запроса в секундах. При использовании 0 ждать бесконечно долго (поведение по умолчанию)
      */
     public function __construct(string $account, ?string $secure = null, ?float $timeout = 5.0)
     {
@@ -108,9 +118,9 @@ final class CdekClientV2
      * @param string|null $method - url path запроса
      * @param array|null  $params - массив данных параметров запроса
      *
-     * @throws CdekV2RequestException
-     *
      * @return array|StreamInterface
+     *
+     * @throws CdekV2RequestException
      */
     private function apiRequest(string $type, string $method, $params = null)
     {
@@ -203,10 +213,8 @@ final class CdekClientV2
     /**
      * Проверяет соответствует ли переданный
      * массив сохраненный данных авторизации требованиям
-     *
-     * @return string|bool
      */
-    private function checkSavedToken()
+    private function checkSavedToken(): string|bool
     {
         $check_memory = $this->getMemory();
 
@@ -251,10 +259,8 @@ final class CdekClientV2
      *
      * @param array    $memory - массив настройки сохранения
      * @param callable $fu     - колл бэк сохранения
-     *
-     * @return self
      */
-    public function setMemory(?array $memory, callable $fu)
+    public function setMemory(?array $memory, callable $fu): CdekClientV2
     {
         $this->memory = $memory;
         $this->memory_save_fu = $fu;
@@ -264,10 +270,8 @@ final class CdekClientV2
 
     /**
      * Проверяет передан ли сохраненный массив данных авторизации.
-     *
-     * @return array|null
      */
-    private function getMemory()
+    private function getMemory(): array|null
     {
         return $this->memory;
     }
@@ -284,10 +288,8 @@ final class CdekClientV2
     /**
      * Устанавливает токен из данных авторизации сервера
      * или из переданной памяти.
-     *
-     * @return self
      */
-    private function setToken(string $token)
+    private function setToken(string $token): CdekClientV2
     {
         $this->token = $token;
 
@@ -296,10 +298,6 @@ final class CdekClientV2
 
     /**
      * Проверка ответа на ошибки.
-     *
-     * @param mixed $method
-     * @param mixed $response
-     * @param mixed $apiResponse
      *
      * @throws CdekV2RequestException
      */
@@ -341,7 +339,7 @@ final class CdekClientV2
      *
      * @return RegionsResponse[]
      */
-    public function getRegions(?Location $filter = null)
+    public function getRegions(?Location $filter = null): array
     {
         $params = ( ! empty($filter)) ? $filter->regions() : [];
         $resp = [];
@@ -359,7 +357,7 @@ final class CdekClientV2
      *
      * @return CitiesResponse[]
      */
-    public function getCities(?Location $filter = null)
+    public function getCities(?Location $filter = null): array
     {
         $params = ( ! empty($filter)) ? $filter->cities() : [];
 
@@ -377,7 +375,7 @@ final class CdekClientV2
      *
      * @return DeliveryPointsResponse[]
      */
-    public function getDeliveryPoints(?DeliveryPoints $filter = null)
+    public function getDeliveryPoints(?DeliveryPoints $filter = null): array
     {
         $resp = [];
         $response = $this->apiRequest('GET', Constants::DELIVERY_POINTS_URL, $filter);
@@ -393,9 +391,9 @@ final class CdekClientV2
      *
      * @param $tariff - Объект класса Tariff установки запроса для тарифа
      *
-     * @throws \InvalidArgumentException
-     *
      * @return TariffResponse Ответ
+     *
+     * @throws \InvalidArgumentException
      */
     public function calculateTariff(Tariff $tariff): TariffResponse
     {
@@ -412,7 +410,7 @@ final class CdekClientV2
      *
      * @return TariffListResponse[] Ответ
      */
-    public function calculateTariffList(Tariff $tariff)
+    public function calculateTariffList(Tariff $tariff): array
     {
         $response = $this->apiRequest('POST', Constants::CALC_TARIFFLIST_URL, $tariff);
 
@@ -430,10 +428,8 @@ final class CdekClientV2
      * @param Order $order - Параметры заказа
      *
      * @throws CdekV2RequestException
-     *
-     * @return EntityResponse
      */
-    public function createOrder(Order $order)
+    public function createOrder(Order $order): EntityResponse
     {
         return new EntityResponse($this->apiRequest('POST', Constants::ORDERS_URL, $order));
     }
@@ -444,10 +440,8 @@ final class CdekClientV2
      * @param string $uuid - Идентификатор сущности, связанной с заказом
      *
      * @throws CdekV2RequestException
-     *
-     * @return bool
      */
-    public function deleteOrder(string $uuid)
+    public function deleteOrder(string $uuid): bool
     {
         $request = new EntityResponse($this->apiRequest('DELETE', Constants::ORDERS_URL.'/'.$uuid));
 
@@ -462,22 +456,18 @@ final class CdekClientV2
      * @param string $order_uuid - Идентификатор заказа в ИС СДЭК, по которому необходимо зарегистрировать отказ
      *
      * @throws CdekV2RequestException
-     *
-     * @return EntityResponse
      */
-    public function сancelOrder(string $order_uuid)
+    public function сancelOrder(string $order_uuid): EntityResponse
     {
-        return new EntityResponse($this->apiRequest('POST', Constants::ORDERS_URL.'/'.$order_uuid.'/'.'refusal'));
+        return new EntityResponse($this->apiRequest('POST', Constants::ORDERS_URL.'/'.$order_uuid.'/refusal'));
     }
 
     /**
      * Обновление заказа.
      *
      * @param Order $order - Параметры заказа
-     *
-     * @return EntityResponse
      */
-    public function updateOrder(Order $order)
+    public function updateOrder(Order $order): EntityResponse
     {
         return new EntityResponse($this->apiRequest('PATCH', Constants::ORDERS_URL, $order));
     }
@@ -534,28 +524,26 @@ final class CdekClientV2
      * Получение Pdf ШК-места к заказу.
      *
      * @param string $uuid - Идентификатор сущности ШК
+     *
+     * @return StreamInterface
      */
-    public function getBarcodePdf(string $uuid): StreamInterface
+    public function getBarcodePdf(string $uuid)
     {
         return $this->apiRequest('GET', Constants::BARCODES_URL.'/'.$uuid.'.pdf');
     }
 
     /**
      * Запрос на формирование накладной к заказу.
-     *
-     * @return EntityResponse
      */
-    public function setInvoice(Invoice $invoice)
+    public function setInvoice(Invoice $invoice): EntityResponse
     {
         return new EntityResponse($this->apiRequest('POST', Constants::INVOICE_URL, $invoice));
     }
 
     /**
      * Получение сущности накладной к заказу.
-     *
-     * @return PrintResponse
      */
-    public function getInvoice(string $uuid)
+    public function getInvoice(string $uuid): PrintResponse
     {
         return new PrintResponse($this->apiRequest('GET', Constants::INVOICE_URL.'/'.$uuid));
     }
@@ -572,50 +560,40 @@ final class CdekClientV2
 
     /**
      * Создание договоренностей для курьера.
-     *
-     * @return EntityResponse
      */
-    public function createAgreement(Agreement $agreement)
+    public function createAgreement(Agreement $agreement): EntityResponse
     {
         return new EntityResponse($this->apiRequest('POST', Constants::COURIER_AGREEMENTS_URL, $agreement));
     }
 
     /**
      * Получение договоренностей для курьера.
-     *
-     * @return array
      */
-    public function getAgreement(string $uuid)
+    public function getAgreement(string $uuid): AgreementResponse
     {
         return new AgreementResponse($this->apiRequest('GET', Constants::COURIER_AGREEMENTS_URL.'/'.$uuid));
     }
 
     /**
      * Создание заявки на вызов курьера.
-     *
-     * @return array
      */
-    public function createIntakes(Intakes $intakes)
+    public function createIntakes(Intakes $intakes): EntityResponse
     {
         return new EntityResponse($this->apiRequest('POST', Constants::INTAKES_URL, $intakes));
     }
 
     /**
      * Информация о заявке на вызов курьера.
-     *
-     * @return array
      */
-    public function getIntakes(string $uuid)
+    public function getIntakes(string $uuid): IntakesResponse
     {
         return new IntakesResponse($this->apiRequest('GET', Constants::INTAKES_URL.'/'.$uuid));
     }
 
     /**
      * Удаление заявки на вызов курьера.
-     *
-     * @return bool
      */
-    public function deleteIntakes(string $uuid)
+    public function deleteIntakes(string $uuid): bool
     {
         $this->apiRequest('DELETE', Constants::INTAKES_URL.'/'.$uuid);
 
