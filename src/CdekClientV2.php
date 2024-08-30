@@ -214,8 +214,10 @@ final class CdekClientV2
     /**
      * Проверяет соответствует ли переданный
      * массив сохраненный данных авторизации требованиям
+     *
+     * @return string|bool|null
      */
-    private function checkSavedToken(): string|bool
+    private function checkSavedToken()
     {
         $check_memory = $this->getMemory();
 
@@ -277,7 +279,7 @@ final class CdekClientV2
         return $this->memory;
     }
 
-    private function getToken(): string
+    private function getToken(): string|null
     {
         if (empty($this->token)) {
             throw new \InvalidArgumentException('Не передан API-токен!');
@@ -634,7 +636,7 @@ final class CdekClientV2
 
     /**
      * Информация о слушателях webhook.
-     * 
+     *
      * @return WebhookListResponse[] Ответ
      */
     public function getWebhooks(): array

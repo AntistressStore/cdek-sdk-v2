@@ -3,7 +3,7 @@
 namespace AntistressStore\Test\Unit;
 
 use AntistressStore\CdekSDK2\Entity\Requests\{DeliveryPoints, Tariff};
-use AntistressStore\CdekSDK2\Entity\Responses\LocationResponse;
+use AntistressStore\CdekSDK2\Entity\Responses\{LocationResponse, WebhookListResponse};
 use AntistressStore\Test\AntistressStoreTestCase;
 
 /**
@@ -13,10 +13,8 @@ use AntistressStore\Test\AntistressStoreTestCase;
  */
 class WebhookListResponseTest extends AntistressStoreTestCase
 {
-    public function testGetDeliveryPoints(): void
+    public function testCreateClassAndGetters(): void
     {
-        $this->markTestIncomplete('no webhook class');
-
         $testResponce = json_decode(
             '[
 {
@@ -46,25 +44,12 @@ class WebhookListResponseTest extends AntistressStoreTestCase
 
         $webhooks = [];
 
-        foreach ($testResponce as $key => $value) {
-            $webhooks[$key] = new WebhookListResponse($testResponce);
-        }
+        foreach ($testResponce as $key => $testWebhook) {
+            $webhooks[$key] = new WebhookListResponse($testWebhook);
 
-        $this->assertTrue(is_string($item->getCode()));
-        $this->assertTrue(is_string($item->getName()));
-        $this->assertTrue(is_string($item->getLocation()->getAddress()));
-        $this->assertTrue(is_string($item->getWorkTime()));
-        $this->assertTrue($item->getLocation() instanceof LocationResponse);
-        $this->assertTrue(is_array($item->getWorkTimeList()));
-        $this->assertTrue(is_array($item->getPhones()));
-        $this->assertTrue(is_string($item->getType()));
-        $this->assertTrue(is_string($item->getOwnerCode()));
-        $this->assertTrue(is_bool($item->getHaveCashless()));
-        $this->assertTrue(is_bool($item->getHaveCash()));
-        $this->assertTrue(is_bool($item->getAllowedCod()));
-        $this->assertTrue(is_bool($item->getIsDressingRoom()));
-        $this->assertTrue(is_bool($item->getIsHandout()));
-        $this->assertTrue(is_bool($item->getIsReception()));
-        $this->assertTrue(is_bool($item->getTakeOnly()));
+            $this->assertTrue($webhooks[$key]->getType() == $testWebhook['type']);
+            $this->assertTrue($webhooks[$key]->getUrl() == $testWebhook['url']);
+            $this->assertTrue($webhooks[$key]->getUuid() == $testWebhook['uuid']);
+        }
     }
 }
