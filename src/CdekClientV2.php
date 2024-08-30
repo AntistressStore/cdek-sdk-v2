@@ -274,12 +274,12 @@ final class CdekClientV2
     /**
      * Проверяет передан ли сохраненный массив данных авторизации.
      */
-    private function getMemory(): array|null
+    private function getMemory(): ?array
     {
         return $this->memory;
     }
 
-    private function getToken(): string|null
+    private function getToken(): ?string
     {
         if (empty($this->token)) {
             throw new \InvalidArgumentException('Не передан API-токен!');
