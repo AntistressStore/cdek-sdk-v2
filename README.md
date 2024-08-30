@@ -2,7 +2,6 @@
   <tr>
   <td><a href="https://antistress.store/"><img align="left" width="230" src="https://antistress.store/mediafiles/logo.png"></a></td>
     <td style="font-size:1.2em"><strong> antistress-store/cdek-sdk-v2 </strong></td>
-    <td><a href="https://www.cdek.ru/ru/integration"><img align="right" width="230" src="https://webcdn.cdek.ru/img/223dd4e.png"></a> </td>
   </tr>
  
 </table>
