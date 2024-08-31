@@ -412,11 +412,54 @@ $order->setRecipient($recipient);
 // Создаем данные посылки. Место
 
         $packages =
-        (new \AntistressStore\CdekSDK2\Entity\Requests\Package())->setNumber('1')->setWeight(500)
-            ->setHeight(10)->setWidth(10)
+            (new \AntistressStore\CdekSDK2\Entity\Requests\Package())
+            ->setNumber('1')
+            ->setWeight(500)->setHeight(10)->setWidth(10)
+            ->setLength(10)
+        ;
+```
+
+Исправлено в версии 1.2.3, следующие функции принимают mixed для обратной совместимости
+```
+AntistressStore\CdekSDK2\Entity\Requests\Order::setServices()
+public function setServices(mixed $services) 
+
+AntistressStore\CdekSDK2\Entity\Requests\Order::setPackages() 
+setPackages(mixed $packages)
+```
+Можно передавать как раньше (как указано выше) экземпляр класса Package или Services в этом случае добавитcя единичная упаковка или сервис, можно передавать целым массивов, тогда массив элементов добавиться к существующим.
+Важно помнить, что массив должен содержать подготовленные классы Package `[Package,Package,...]` или Services `[Services,Services,...]`, пример для $packages:
+```
+\\ вариант 1 Один экземпляр класса
+        $packages =
+        (new \AntistressStore\CdekSDK2\Entity\Requests\Package())
+            ->setNumber('1')
+            ->setWeight(500)
+            ->setHeight(10)
+            ->setWidth(10)
             ->setLength(10)
         ;
 
+      $order->setPackages($packages);
+
+\\ массив экземплярами класса
+        $packages = [];
+
+        $packages[] =
+        (new \AntistressStore\CdekSDK2\Entity\Requests\Package())
+            ->setNumber('1')
+            ->setWeight(500)
+            ->setHeight(10)
+            ->setWidth(10)
+            ->setLength(10)
+        ;
+
+      $order->setPackages($packages);
+```
+Для добавления сервисов есть более удобная экспресс функция `->addServices(['INSURANCE' => 1000])` в которую передается массив ключ - значение, а функция сама подготовит правильный класс.
+
+
+```
 // Создаем товары
 
         $items = [];
@@ -428,6 +471,7 @@ $order->setRecipient($recipient);
             ->setWeight(100) // Вес в граммах
             ->setAmount(1) // Количество
         ;
+
 $packages->setItems($items);
 $order->setPackages($packages);
     

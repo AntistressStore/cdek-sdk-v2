@@ -10,9 +10,7 @@
 namespace AntistressStore\CdekSDK2\Traits;
 
 use AntistressStore\CdekSDK2\Constants;
-use AntistressStore\CdekSDK2\Entity\Requests\Location;
-use AntistressStore\CdekSDK2\Entity\Requests\Package;
-use AntistressStore\CdekSDK2\Entity\Requests\Services;
+use AntistressStore\CdekSDK2\Entity\Requests\{Location, Package, Services};
 
 trait TariffTrait
 {
@@ -145,13 +143,19 @@ trait TariffTrait
     /**
      * Установка дополнительных услуг.
      *
-     * @param Services[] $services Дополнительные услуги
+     * @param Services|array $services Дополнительные услуги
      *
      * @return self
      */
-    public function setServices(Services $services)
+    public function setServices(mixed $services)
     {
-        $this->services = $services;
+        if (is_array($services)) {
+            foreach ($services as $service) {
+                $this->services[] = $service;
+            }
+        } else {
+            $this->services[] = $services;
+        }
 
         return $this;
     }
@@ -249,13 +253,13 @@ trait TariffTrait
      *
      * @return self
      */
-    public function addServices($services)
+    public function addServices(array $services)
     {
         $services_array = [];
         $services_pattern = Constants::SERVICE_CODES;
         foreach ($services as $key => $value) {
-            $service_name = (!empty($key)) ? $key : $value;
-            if (!empty($key) && array_key_exists($key, $services_pattern)) {
+            $service_name = ( ! empty($key)) ? $key : $value;
+            if ( ! empty($key) && array_key_exists($key, $services_pattern)) {
                 $services_array[] = (new Services())->setCode($key)->setParameter($value);
             } elseif (empty($key) && array_key_exists($value, $services_pattern)) {
                 $services_array[] = (new Services())->setCode($value);
@@ -271,13 +275,19 @@ trait TariffTrait
     /**
      * Установка список информации по местам (упаковкам).
      *
-     * @param Package[] $packages Список информации по местам (упаковкам)
+     * @param Package|array $packages Список информации по местам (упаковкам)
      *
      * @return self
      */
-    public function setPackages(Package $packages)
+    public function setPackages(mixed $packages)
     {
-        $this->packages[] = $packages;
+        if (is_array($packages)) {
+            foreach ($packages as $package) {
+                $this->packages[] = $package;
+            }
+        } else {
+            $this->packages[] = $packages;
+        }
 
         return $this;
     }
