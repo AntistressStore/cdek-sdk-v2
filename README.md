@@ -427,10 +427,10 @@ public function setServices(mixed $services)
 AntistressStore\CdekSDK2\Entity\Requests\Order::setPackages() 
 setPackages(mixed $packages)
 ```
-Можно передавать как раньше (как указано выше) экземпляр класса Package или Services в этом случае добавитcя единичная упаковка или сервис, можно передавать целым массивов, тогда массив элементов добавиться к существующим.
+Можно передавать как раньше один экземпляр класса Package или Services в этом случае добавитcя единичная упаковка или сервис, можно передавать целым массивом, тогда массив элементов добавиться к существующим.
 Важно помнить, что массив должен содержать подготовленные классы Package `[Package,Package,...]` или Services `[Services,Services,...]`, пример для $packages:
-```
-\\ вариант 1 Один экземпляр класса
+```php
+ \\ вариант 1 Один экземпляр класса
         $packages =
         (new \AntistressStore\CdekSDK2\Entity\Requests\Package())
             ->setNumber('1')
@@ -442,7 +442,7 @@ setPackages(mixed $packages)
 
       $order->setPackages($packages);
 
-\\ массив экземплярами класса
+ \\ массив c экземплярами класса
         $packages = [];
 
         $packages[] =

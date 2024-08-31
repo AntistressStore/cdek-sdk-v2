@@ -147,7 +147,7 @@ trait TariffTrait
      *
      * @return self
      */
-    public function setServices(mixed $services)
+    public function setServices($services)
     {
         if (is_array($services)) {
             foreach ($services as $service) {
@@ -279,7 +279,7 @@ trait TariffTrait
      *
      * @return self
      */
-    public function setPackages(mixed $packages)
+    public function setPackages($packages)
     {
         if (is_array($packages)) {
             foreach ($packages as $package) {
