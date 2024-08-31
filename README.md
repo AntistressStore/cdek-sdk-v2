@@ -91,6 +91,7 @@
 | [Подписка на вебхуки (Webhooks)](#подписка-на-вебхуки-webhooks)                                                | `setWebhooks`              | `webhooks`     | EntityResponse           |
 ****
 ## История
+- v1.2.2 В CdekClientV2 добавлены строгие типы возврата значений (будьте внимательны). Исправлен метод getWebhooks (спасибо [Ilya Brilev](https://github.com/ilyabrilev)). Добавлены класс и его тесты WebhookListResponce
 - v1.2 Добавлены первые тесты DeliveryPoints и Tariff, исправлены тестовые логин и пароль (обновились у сдэк)
 - v1.1.1 Обновили ссылку на документацию. Спасибо [Nikolay Lapay](https://github.com/iamwildtuna)
 - v1.1 
