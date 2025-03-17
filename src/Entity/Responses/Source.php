@@ -23,6 +23,9 @@ class Source
         if ($properties != null) {
             if (isset($properties['entity'])) {
                 if (count($properties['entity']) > 1) {
+                    if (isset($properties['requests'])) {
+                        $properties['entity']['requests'] = $properties['requests'];
+                    }
                     $properties = $properties['entity'];
                 }
             }
