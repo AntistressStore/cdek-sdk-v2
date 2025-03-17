@@ -38,7 +38,7 @@ class Tariff extends Source
      */
     public function setDate(\DateTimeInterface $date)
     {
-        $this->date = $date;
+        $this->date = date_format($date, DATE_ISO8601);
 
         return $this;
     }
