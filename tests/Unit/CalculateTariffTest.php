@@ -21,7 +21,6 @@ class CalculateTariffTest extends AntistressStoreTestCase
         ;
 
         $tariffResponse = $this->setCdekClient()->calculateTariff($tariff);
-var_dump($tariffResponse);
         $this->assertTrue(is_float($tariffResponse->getTotalSum()));
         $this->assertTrue(is_string($tariffResponse->getCurrency()));
         $this->assertTrue(is_float($tariffResponse->getDeliverySum()));
