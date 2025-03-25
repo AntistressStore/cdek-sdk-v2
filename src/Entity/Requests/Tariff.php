@@ -38,7 +38,7 @@ class Tariff extends Source
      */
     public function setDate(\DateTimeInterface $date)
     {
-        $this->date = date_format($date, DATE_ISO8601);
+        $this->date = $date;
 
         return $this;
     }
@@ -157,8 +157,8 @@ class Tariff extends Source
         $services_array = [];
         $services_pattern = Constants::SERVICE_CODES;
         foreach ($services as $key => $value) {
-            $service_name = (!empty($key)) ? $key : $value;
-            if (!empty($key) && array_key_exists($key, $services_pattern)) {
+            $service_name = ( ! empty($key)) ? $key : $value;
+            if ( ! empty($key) && array_key_exists($key, $services_pattern)) {
                 $services_array[] = (new Services())->setCode($key)->setParameter($value);
             } elseif (empty($key) && array_key_exists($value, $services_pattern)) {
                 $services_array[] = (new Services())->setCode($value);
