@@ -22,6 +22,14 @@ class CitiesResponse extends Source
     public $time_zone;
 
     /**
+     * Ограничение на сумму наложенного платежа в населенном пункте.
+     *
+     * @var string|null
+     */
+
+    public $payment_limit;
+
+    /**
      * Получить часовой пояс населенного пункта.
      *
      * @return string|null
@@ -29,5 +37,15 @@ class CitiesResponse extends Source
     public function getTimeZone()
     {
         return $this->time_zone;
+    }
+
+    /**
+     * Получить ограничение на сумму наложенного платежа в населенном пункте.
+     *
+     * @return string|null
+     */
+    public function getPaymentLimit()
+    {
+        return $this->payment_limit;
     }
 }
