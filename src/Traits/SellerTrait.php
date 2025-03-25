@@ -21,7 +21,7 @@ trait SellerTrait
     /**
      * ИНН истинного продавца.
      *
-     * @var int
+     * @var int|string
      */
     public $inn;
 
@@ -63,13 +63,13 @@ trait SellerTrait
     }
 
     /**
-     * Устанавливает иНН истинного продавца.
+     * Устанавливает ИНН истинного продавца.
      *
-     * @param int $inn ИНН истинного продавца
+     * @param int|string $inn ИНН истинного продавца
      *
      * @return self
      */
-    public function setInn(int $inn)
+    public function setInn(int|string $inn)
     {
         $this->inn = $inn;
 
