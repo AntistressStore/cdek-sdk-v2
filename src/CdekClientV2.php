@@ -24,7 +24,7 @@ use AntistressStore\CdekSDK2\Entity\Responses\{
     TariffResponse,
     WebhookListResponse
 };
-use AntistressStore\CdekSDK2\Entity\Responses\{CheckResponse, PaymentResponse};
+use AntistressStore\CdekSDK2\Entity\Responses\{CheckResponse, CitiesSuggestResponse, PaymentResponse};
 use AntistressStore\CdekSDK2\Exceptions\{CdekV2AuthException, CdekV2RequestException};
 use GuzzleHttp\Client as GuzzleClient;
 use Psr\Http\Message\StreamInterface;
@@ -336,7 +336,22 @@ final class CdekClientV2
 
         return false;
     }
+    /**
+     * Поиск городов по неполному названию.
+     *
+     * @return CitiesSuggestResponse[]
+     */
+    public function suggestCity(string $query): array
+    {
+        $resp     = [];
+        $response = $this->apiRequest('GET', Constants::CITIES_SUGGEST_URL, ['name' => $query]);
 
+        foreach ($response as $key => $value) {
+            $resp[] = new CitiesSuggestResponse($value);
+        }
+
+        return $resp;
+    }
     /**
      * Получение списка регионов.
      *
