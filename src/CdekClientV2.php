@@ -24,7 +24,9 @@ use AntistressStore\CdekSDK2\Entity\Responses\{
     TariffResponse,
     WebhookListResponse
 };
-use AntistressStore\CdekSDK2\Entity\Responses\{CheckResponse, CitiesSuggestResponse, PaymentResponse};
+
+use AntistressStore\CdekSDK2\Entity\Responses\{CheckResponse, CitiesSuggestResponse, PaymentResponse, RegistryResponse};
+
 use AntistressStore\CdekSDK2\Exceptions\{CdekV2AuthException, CdekV2RequestException};
 use GuzzleHttp\Client as GuzzleClient;
 use Psr\Http\Message\StreamInterface;
@@ -616,6 +618,18 @@ final class CdekClientV2
         $this->apiRequest('DELETE', Constants::INTAKES_URL.'/'.$uuid);
 
         return false;
+    }
+
+    /**
+     * Запрос на получение информации о реестрах НП.
+     *
+     * @param string $date - Дата, за которую необходимо вернуть реестры наложенных платежей, по которым был переведен наложенный платеж.
+     *                     пример: '2021-03-25'
+     */
+
+    public function getRegistries(string $date): RegistryResponse
+    {
+        return new RegistryResponse($this->apiRequest('GET', 'registries', ['date' => $date]));
     }
 
     /**
