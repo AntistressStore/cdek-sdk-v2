@@ -19,6 +19,13 @@ trait LocationTrait
     protected $code;
 
     /**
+     * Идентификатор города в ИС СДЭК.
+     *
+     * @var string|null
+     */
+    protected $city_uuid;
+
+    /**
      * Уникальный идентификатор ФИАС
      *
      * @var string|null
@@ -123,6 +130,14 @@ trait LocationTrait
     public function getCode()
     {
         return $this->code;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUuid()
+    {
+        return $this->city_uuid;
     }
 
     /**
