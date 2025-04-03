@@ -9,11 +9,11 @@
 namespace AntistressStore\CdekSDK2\Entity\Requests;
 
 use AntistressStore\CdekSDK2\Constants;
-use AntistressStore\CdekSDK2\Traits\CommonTrait;
+use AntistressStore\CdekSDK2\Traits\LocationTrait;
 
 class LocationSuggest extends Source
 {
-    use CommonTrait;
+    use LocationTrait;
 
     /**
      * Наименование населенного пункта СДЭК. Может быть введено не полностью.
