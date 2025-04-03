@@ -376,7 +376,7 @@ $response = $cdek_client->getCities($request);
   ```  
 Пример запроса: 
   ```php
-$request = (new Location())->setName('Екатеринб')->setCountryCode('RU');
+$request = (new LocationSuggest())->setName('Екатеринб')->setCountryCode('RU');
 $response = $cdek_client->suggestCity($query);
 ```
 Название города в запросе может быть не полным.
