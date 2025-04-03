@@ -8,6 +8,7 @@
 
 namespace AntistressStore\CdekSDK2\Entity\Requests;
 
+use AntistressStore\CdekSDK2\Constants;
 use AntistressStore\CdekSDK2\Traits\CommonTrait;
 
 class LocationSuggest extends Source
@@ -20,7 +21,17 @@ class LocationSuggest extends Source
      * @var string
      */
     protected $name;
+    /**
+     * Устанавливает настройки фильтрации на поиск населенных пунктов.
+     *
+     * @return self
+     */
+    public function citiesSuggest()
+    {
+        $this->pattern = Constants::CITIES_SUGGEST_FILTER;
 
+        return $this;
+    }
     /**
      * Set запрос названия города для поиска.
      *
