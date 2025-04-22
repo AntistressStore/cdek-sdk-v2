@@ -19,6 +19,13 @@ trait LocationTrait
     protected $code;
 
     /**
+     * Идентификатор города в ИС СДЭК.
+     *
+     * @var string|null
+     */
+    protected $city_uuid;
+
+    /**
      * Уникальный идентификатор ФИАС
      *
      * @var string|null
@@ -47,14 +54,21 @@ trait LocationTrait
     protected $latitude;
 
     /**
-     * Код страны в формате  ISO_3166-1_alpha-2.
+     * Код страны в формате ISO_3166-1_alpha-2.
      *
      * @example RU, DE, TR
      *
      * @var string
      */
     protected $country_code;
-    
+
+    /**
+     * Массив кодов стран в формате ISO_3166-1_alpha-2.
+     *
+     * @var string[]|null
+     */
+    protected $country_codes;
+
     /**
      * Название страны
      *
@@ -128,6 +142,14 @@ trait LocationTrait
     /**
      * @return string
      */
+    public function getUuid()
+    {
+        return $this->city_uuid;
+    }
+
+    /**
+     * @return string
+     */
     public function getCountryCode()
     {
         return $this->country_code;
@@ -142,7 +164,7 @@ trait LocationTrait
     }
 
     /**
-     * @return string
+     * @return string[]|null
      */
     public function getCountryCodes()
     {
@@ -235,5 +257,28 @@ trait LocationTrait
     public function getSubRegion()
     {
         return $this->sub_region;
+    }
+    /**
+     * @param string $country_code
+     *
+     * @return self
+     */
+    public function setCountryCode($country_code = 'RU')
+    {
+        $this->country_code = $country_code;
+
+        return $this;
+    }
+
+    /**
+     * @param string[] $country_codes
+     *
+     * @return self
+     */
+    public function setCountryCodes($country_codes)
+    {
+        $this->country_codes = $country_codes;
+
+        return $this;
     }
 }
