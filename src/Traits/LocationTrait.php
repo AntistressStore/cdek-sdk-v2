@@ -132,6 +132,15 @@ trait LocationTrait
     protected $postal_codes;
 
     /**
+     * Тип контрагента, разрешённые значения:
+     * LEGAL_ENTITY - юридическое лицо;
+     * INDIVIDUAL - физическое лицо
+     *
+     * @var array|null
+     */
+    protected $contragent_type;
+
+    /**
      * @return int
      */
     public function getCode()
@@ -278,6 +287,18 @@ trait LocationTrait
     public function setCountryCodes($country_codes)
     {
         $this->country_codes = $country_codes;
+
+        return $this;
+    }
+
+    /**
+     * @param string $contragent_type
+     *
+     * @return self
+     */
+    public function setContragentType($contragent_type)
+    {
+        $this->contragent_type = $contragent_type;
 
         return $this;
     }
