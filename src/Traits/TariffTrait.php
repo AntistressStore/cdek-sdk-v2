@@ -57,6 +57,35 @@ trait TariffTrait
     protected $packages;
 
     /**
+     * Минимальное время доставки (в рабочих днях).
+     *
+     * @var int
+     */
+    protected $period_min;
+
+    /**
+     * Максимальное время доставки (в рабочих днях).
+     *
+     * @var int
+     */
+    protected $period_max;
+
+    /**
+     * Минимальное время доставки (в календарных днях).
+     *
+     * @var int
+     */
+    protected $calendar_min;
+
+    /**
+     * Максимальное время доставки (в календарных днях).
+     *
+     * @var int
+     */
+    protected $calendar_max;
+
+
+    /**
      * Установка даты и времени планируемой передачи заказа (дата и время в формате ISO 8601: YYYY-MM-DDThh:mm:ss±hhmm).
      *
      * @param \DateTimeInterface $date Дата и время планируемой передачи заказа (дата и время в формате ISO 8601: YYYY-MM-DDThh:mm:ss±hhmm)
@@ -350,5 +379,44 @@ trait TariffTrait
     public function getType()
     {
         return $this->type;
+    }
+    /**
+     * Get минимальное время доставки (в рабочих днях).
+     *
+     * @return int
+     */
+    public function getPeriodMin()
+    {
+        return $this->period_min;
+    }
+
+    /**
+     * Get максимальное время доставки (в рабочих днях).
+     *
+     * @return int
+     */
+    public function getPeriodMax()
+    {
+        return $this->period_max;
+    }
+
+    /**
+     * Get минимальное время доставки (в календарных днях).
+     *
+     * @return int
+     */
+    public function getCalendarMin()
+    {
+        return $this->calendar_min;
+    }
+
+    /**
+     * Get максимальное время доставки (в календарных днях).
+     *
+     * @return int
+     */
+    public function getCalendarMax()
+    {
+        return $this->calendar_max;
     }
 }
