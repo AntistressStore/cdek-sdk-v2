@@ -82,7 +82,7 @@ class PrintResponse extends EntityResponse
     }
 
     /**
-     * Получить параметр - Статус файла	.
+     * Получить параметр - Статус файла.
      *
      * @return StatusesResponse[]
      */

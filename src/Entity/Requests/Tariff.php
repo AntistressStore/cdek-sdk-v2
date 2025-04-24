@@ -30,6 +30,13 @@ class Tariff extends Source
     protected $currency;
 
     /**
+     * Локализация по умолчанию 'rus'.
+     *
+     * @var string|null
+     */
+    protected $lang;
+
+    /**
      * Установка даты и времени планируемой передачи заказа (дата и время в формате ISO 8601: YYYY-MM-DDThh:mm:ss±hhmm).
      *
      * @param \DateTimeInterface $date Дата и время планируемой передачи заказа (дата и время в формате ISO 8601: YYYY-MM-DDThh:mm:ss±hhmm)
