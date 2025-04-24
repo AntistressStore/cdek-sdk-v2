@@ -19,7 +19,7 @@ class RegionsResponse extends Source
     protected $country;
 
     /**
-     * Код страны в формате  ISO_3166-1_alpha-2.
+     * Код страны в формате ISO_3166-1_alpha-2.
      *
      * @example RU, DE, TR
      *

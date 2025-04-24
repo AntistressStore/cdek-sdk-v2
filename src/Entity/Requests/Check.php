@@ -12,7 +12,7 @@ use AntistressStore\CdekSDK2\Traits\CommonTrait;
 
 /**
  * Class Check.
- * используется для получения информации о чеке по заказу или за выбранный день. 
+ * Используется для получения информации о чеке по заказу или за выбранный день.
  */
 class Check extends Source
 {

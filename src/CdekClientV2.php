@@ -10,7 +10,16 @@
 namespace AntistressStore\CdekSDK2;
 
 use AntistressStore\CdekSDK2\Entity\Requests\Check;
-use AntistressStore\CdekSDK2\Entity\Requests\{Agreement, Barcode, DeliveryPoints, Intakes, Invoice, Location, Order, Tariff, Webhooks};
+use AntistressStore\CdekSDK2\Entity\Requests\{Agreement,
+    Barcode,
+    DeliveryPoints,
+    Intakes,
+    Invoice,
+    Location,
+    LocationSuggest,
+    Order,
+    Tariff,
+    Webhooks};
 use AntistressStore\CdekSDK2\Entity\Responses\{
     AgreementResponse,
     CitiesResponse,
@@ -24,7 +33,9 @@ use AntistressStore\CdekSDK2\Entity\Responses\{
     TariffResponse,
     WebhookListResponse
 };
-use AntistressStore\CdekSDK2\Entity\Responses\{CheckResponse, PaymentResponse, RegistryResponse};
+
+use AntistressStore\CdekSDK2\Entity\Responses\{CheckResponse, CitiesSuggestResponse, PaymentResponse, RegistryResponse};
+
 use AntistressStore\CdekSDK2\Exceptions\{CdekV2AuthException, CdekV2RequestException};
 use GuzzleHttp\Client as GuzzleClient;
 use Psr\Http\Message\StreamInterface;
@@ -70,7 +81,7 @@ final class CdekClientV2
     private $memory;
 
     /**
-     * Коллбэк сохранения токэна.
+     * Коллбэк сохранения токена.
      *
      * @var callable
      */
@@ -159,7 +170,7 @@ final class CdekClientV2
                 $response = $this->http->patch($method, ['json' => $params, 'headers' => $headers]);
                 break;
         }
-        // Если запрос на файл pdf был успешным сразу отправляем его в ответ
+        // Если запрос на файл pdf был успешным, сразу отправляем его в ответ
         if ($is_pdf_file_request) {
             if ($response->getStatusCode() == 200) {
                 if (strpos($response->getHeader('Content-Type')[0], 'application/pdf') !== false) {
@@ -231,7 +242,7 @@ final class CdekClientV2
         }
 
         // Если не передан верный сохраненный массив данных для авторизации,
-        // но тип аккаунта не тот, который был при прошлой сохраненной авторизации - функция возвратит false
+        // но тип аккаунта не тот, который был при прошлой сохраненной авторизации, функция возвратит false
 
         if (isset($check_memory['account_type'])) {
             if ($check_memory['account_type'] !== $this->account_type) {
@@ -336,7 +347,23 @@ final class CdekClientV2
 
         return false;
     }
+    /**
+     * Поиск городов по неполному названию.
+     *
+     * @return CitiesSuggestResponse[]
+     */
+    public function suggestCity(?LocationSuggest $filter = null): array
+    {
+        $params = ( ! empty($filter)) ? $filter->citiesSuggest() : [];
+        $resp     = [];
+        $response = $this->apiRequest('GET', Constants::CITIES_SUGGEST_URL, $params);
 
+        foreach ($response as $key => $value) {
+            $resp[] = new CitiesSuggestResponse($value);
+        }
+
+        return $resp;
+    }
     /**
      * Получение списка регионов.
      *
@@ -460,7 +487,7 @@ final class CdekClientV2
      *
      * @throws CdekV2RequestException
      */
-    public function сancelOrder(string $order_uuid): EntityResponse
+    public function cancelOrder(string $order_uuid): EntityResponse
     {
         return new EntityResponse($this->apiRequest('POST', Constants::ORDERS_URL.'/'.$order_uuid.'/refusal'));
     }
@@ -629,7 +656,7 @@ final class CdekClientV2
     /**
      * Метод используется для получения информации о чеке по заказу или за выбранный день.
      *
-     * @param Check $check - данные о заказах по которым нужно получить чеки
+     * @param Check $check - данные о заказах, по которым нужно получить чеки
      */
     public function getChecks(Check $check): CheckResponse
     {

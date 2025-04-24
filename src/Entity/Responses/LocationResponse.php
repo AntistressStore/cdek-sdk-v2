@@ -23,7 +23,7 @@ class LocationResponse extends Source
     protected $city_code;
     
     /**
-     * Aдрес с указанием страны, региона, города, и т.д.
+     * Адрес с указанием страны, региона, города, и т.д.
      *
      * @var string|null
      */
@@ -40,7 +40,7 @@ class LocationResponse extends Source
     }
 
     /**
-     * Получить aдрес с указанием страны, региона, города, и т.д.
+     * Получить адрес с указанием страны, региона, города, и т.д.
      *
      * @return string|null
      */
