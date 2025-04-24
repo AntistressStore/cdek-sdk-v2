@@ -81,7 +81,7 @@ final class CdekClientV2
     private $memory;
 
     /**
-     * Коллбэк сохранения токэна.
+     * Коллбэк сохранения токена.
      *
      * @var callable
      */
@@ -170,7 +170,7 @@ final class CdekClientV2
                 $response = $this->http->patch($method, ['json' => $params, 'headers' => $headers]);
                 break;
         }
-        // Если запрос на файл pdf был успешным сразу отправляем его в ответ
+        // Если запрос на файл pdf был успешным, сразу отправляем его в ответ
         if ($is_pdf_file_request) {
             if ($response->getStatusCode() == 200) {
                 if (strpos($response->getHeader('Content-Type')[0], 'application/pdf') !== false) {
@@ -242,7 +242,7 @@ final class CdekClientV2
         }
 
         // Если не передан верный сохраненный массив данных для авторизации,
-        // но тип аккаунта не тот, который был при прошлой сохраненной авторизации - функция возвратит false
+        // но тип аккаунта не тот, который был при прошлой сохраненной авторизации, функция возвратит false
 
         if (isset($check_memory['account_type'])) {
             if ($check_memory['account_type'] !== $this->account_type) {
@@ -487,7 +487,7 @@ final class CdekClientV2
      *
      * @throws CdekV2RequestException
      */
-    public function сancelOrder(string $order_uuid): EntityResponse
+    public function cancelOrder(string $order_uuid): EntityResponse
     {
         return new EntityResponse($this->apiRequest('POST', Constants::ORDERS_URL.'/'.$order_uuid.'/refusal'));
     }
@@ -656,7 +656,7 @@ final class CdekClientV2
     /**
      * Метод используется для получения информации о чеке по заказу или за выбранный день.
      *
-     * @param Check $check - данные о заказах по которым нужно получить чеки
+     * @param Check $check - данные о заказах, по которым нужно получить чеки
      */
     public function getChecks(Check $check): CheckResponse
     {

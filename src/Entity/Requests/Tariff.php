@@ -37,13 +37,6 @@ class Tariff extends Source
      */
     protected $lang;
 
-//    /**
-//     * Дополнительные типы заказа:
-//     *
-//     * @var string|null
-//     */
-//    protected $additional_order_types;
-
     /**
      * Установка даты и времени планируемой передачи заказа (дата и время в формате ISO 8601: YYYY-MM-DDThh:mm:ss±hhmm).
      *
@@ -71,12 +64,7 @@ class Tariff extends Source
 
         return $this;
     }
-//    public function setAdditionalOrderTypes()
-//    {
-//        $this->additional_order_types = Constants::ADDITIONAL_ORDER_TYPES;
-//    
-//        return $this;
-//    }
+
     /**
      * Установка валюты, в которой необходимо произвести расчет
      *

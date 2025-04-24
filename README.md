@@ -203,6 +203,8 @@ $result->getDeliverySum(); // Стоимость доставки
 $result->getDeliveryMode(); // Режим тарифа
 $result->getPeriodMin(); // Минимальное время доставки (в рабочих днях)	
 $result->getPeriodMax(); // Максимальное время доставки (в рабочих днях)	
+$result->getCalendarMin()
+$result->getCalendarMax()
 }
 
 ```
@@ -227,6 +229,8 @@ $tariff_response = $cdek_client->calculateTariff($tariff); // TariffResponse
 ->getDeliverySum()
 ->getPeriodMin()
 ->getPeriodMax()
+->getCalendarMin()
+->getCalendarMax()
 ->getWeightCalc()
 ->getTotalSum()
 ->getCurrency()
@@ -247,16 +251,23 @@ $tariff_response = $cdek_client->calculateTariff($tariff); // TariffResponse
  //... При таких установках на выходе имеем рассчитанную суммы страховки, см  object = AntistressStore\CdekSDK2\Entity\Responses\ServicesResponse
  
  $tariffResponce object = AntistressStore\CdekSDK2\Entity\Responses\TariffResponse
-    delivery_sum float = 130
-    period_min int = 8
-    period_max int = 12
-    weight_calc int = 500
+    delivery_sum float = 1505
+    period_min int = 2
+    period_max int = 3
+    weight_calc int = 6000
+    calendar_min int = 2
+    calendar_max int = 3
     total_sum float = 246
     currency string = "RUB"
   services array = array(1)
    0 object = AntistressStore\CdekSDK2\Entity\Responses\ServicesResponse
-      sum float = 75
       code string = "INSURANCE"
+      sum float = 45
+      total_sum float = 54
+      discount_percent float = 0
+      discount_sum float = 0
+      vat_rate float = 0
+      vat_sum float = 0
       parameter null = null
 
 ```

@@ -12,7 +12,7 @@ namespace AntistressStore\CdekSDK2\Traits;
 trait ExpressTrait
 {
     /**
-     * Экспресс-метод установки параметов.
+     * Экспресс-метод установки параметров.
      */
     public static function express(array $args)
     {
