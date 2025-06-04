@@ -15,10 +15,11 @@ use AntistressStore\CdekSDK2\Traits\TariffTrait;
 class Tariff extends Source
 {
     use TariffTrait;
+
     /**
      * Дата и время планируемой передачи заказа (дата и время в формате ISO 8601: YYYY-MM-DDThh:mm:ss±hhmm).
      *
-     * @var \DateTimeInterface
+     * @var string
      */
     protected $date;
 
@@ -30,13 +31,20 @@ class Tariff extends Source
     protected $currency;
 
     /**
+     * Локализация по умолчанию 'rus'.
+     *
+     * @var string|null
+     */
+    protected $lang;
+
+    /**
      * Установка даты и времени планируемой передачи заказа (дата и время в формате ISO 8601: YYYY-MM-DDThh:mm:ss±hhmm).
      *
-     * @param \DateTimeInterface $date Дата и время планируемой передачи заказа (дата и время в формате ISO 8601: YYYY-MM-DDThh:mm:ss±hhmm)
+     * @param string $date Дата и время планируемой передачи заказа (дата и время в формате ISO 8601: YYYY-MM-DDThh:mm:ss±hhmm)
      *
      * @return self
      */
-    public function setDate(\DateTimeInterface $date)
+    public function setDate(string $date)
     {
         $this->date = $date;
 
@@ -67,6 +75,18 @@ class Tariff extends Source
     public function setCurrency(int $currency)
     {
         $this->currency = $currency;
+
+        return $this;
+    }
+
+    /**
+     * @param string $lang
+     *
+     * @return self
+     */
+    public function setLang($lang = 'rus')
+    {
+        $this->lang = $lang;
 
         return $this;
     }

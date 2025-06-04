@@ -37,7 +37,7 @@ class Invoice extends Source
     /**
      * Установить параметр - список заказов.
      *
-     * @param Order[] $orders Список заказов
+     * @param Order $orders Список заказов
      *
      * @return self
      */
