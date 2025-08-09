@@ -105,14 +105,14 @@ class Constants
     public const DELIVERY_POINTS_URL = 'deliverypoints';
 
     /**
-     * URL для получения детальной информации о регионах.
+     * URL для расчета стоимости и сроков доставки по конкретному коду тарифа.
      *
      * @var string
      */
     public const CALC_TARIFF_URL = 'calculator/tariff';
 
     /**
-     * URL для получения детальной информации о регионах.
+     * URL для расчета стоимости и сроков доставки по всем доступным тарифам.
      *
      * @var string
      */
@@ -152,6 +152,13 @@ class Constants
      * @var string
      */
     public const REGIONS_URL = 'location/regions';
+
+    /**
+     * URL для поиска города по неполному названию.
+     *
+     * @var string
+     */
+    public const CITIES_SUGGEST_URL = 'location/suggest/cities';
 
     /**
      * URL для запросов к API на формирование ШК.
@@ -216,6 +223,16 @@ class Constants
         'size' => '',
         'page' => '',
         'lang' => '',
+    ];
+
+    /**
+     * Список корректных параметров, которые разрешено передавать для поиска населенных пунктов по названию.
+     *
+     * @var array
+     */
+    public const CITIES_SUGGEST_FILTER = [
+        'country_code' => '',
+        'name' => '',
     ];
 
     /**

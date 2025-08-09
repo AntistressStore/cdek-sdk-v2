@@ -10,7 +10,16 @@
 namespace AntistressStore\CdekSDK2;
 
 use AntistressStore\CdekSDK2\Entity\Requests\Check;
-use AntistressStore\CdekSDK2\Entity\Requests\{Agreement, Barcode, DeliveryPoints, Intakes, Invoice, Location, Order, Tariff, Webhooks};
+use AntistressStore\CdekSDK2\Entity\Requests\{Agreement,
+    Barcode,
+    DeliveryPoints,
+    Intakes,
+    Invoice,
+    Location,
+    LocationSuggest,
+    Order,
+    Tariff,
+    Webhooks};
 use AntistressStore\CdekSDK2\Entity\Responses\{
     AgreementResponse,
     CitiesResponse,
@@ -24,7 +33,9 @@ use AntistressStore\CdekSDK2\Entity\Responses\{
     TariffResponse,
     WebhookListResponse
 };
-use AntistressStore\CdekSDK2\Entity\Responses\{CheckResponse, PaymentResponse, RegistryResponse};
+
+use AntistressStore\CdekSDK2\Entity\Responses\{CheckResponse, CitiesSuggestResponse, PaymentResponse, RegistryResponse};
+
 use AntistressStore\CdekSDK2\Exceptions\{CdekV2AuthException, CdekV2RequestException};
 use GuzzleHttp\Client as GuzzleClient;
 use Psr\Http\Message\StreamInterface;
@@ -336,7 +347,23 @@ final class CdekClientV2
 
         return false;
     }
+    /**
+     * Поиск городов по неполному названию.
+     *
+     * @return CitiesSuggestResponse[]
+     */
+    public function suggestCity(?LocationSuggest $filter = null): array
+    {
+        $params = ( ! empty($filter)) ? $filter->citiesSuggest() : [];
+        $resp     = [];
+        $response = $this->apiRequest('GET', Constants::CITIES_SUGGEST_URL, $params);
 
+        foreach ($response as $key => $value) {
+            $resp[] = new CitiesSuggestResponse($value);
+        }
+
+        return $resp;
+    }
     /**
      * Получение списка регионов.
      *

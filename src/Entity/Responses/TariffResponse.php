@@ -8,30 +8,18 @@
  */
 
 namespace AntistressStore\CdekSDK2\Entity\Responses;
+use AntistressStore\CdekSDK2\Traits\TariffTrait;
 
 class TariffResponse extends Source
 {
+    use TariffTrait;
     /**
      * Стоимость доставки.
      *
      * @var float
      */
     protected $delivery_sum;
-
-    /**
-     * Минимальное время доставки (в рабочих днях).
-     *
-     * @var int
-     */
-    protected $period_min;
-
-    /**
-     * Максимальное время доставки (в рабочих днях).
-     *
-     * @var int
-     */
-    protected $period_max;
-
+    
     /**
      * Расчетный вес (в граммах).
      *
@@ -71,26 +59,6 @@ class TariffResponse extends Source
     }
 
     /**
-     * Get минимальное время доставки (в рабочих днях).
-     *
-     * @return int
-     */
-    public function getPeriodMin()
-    {
-        return $this->period_min;
-    }
-
-    /**
-     * Get максимальное время доставки (в рабочих днях).
-     *
-     * @return int
-     */
-    public function getPeriodMax()
-    {
-        return $this->period_max;
-    }
-
-    /**
      * Get расчетный вес (в граммах).
      *
      * @return int
@@ -99,6 +67,7 @@ class TariffResponse extends Source
     {
         return $this->weight_calc;
     }
+
 
     /**
      * Get стоимость доставки с учетом дополнительных услуг.

@@ -49,13 +49,6 @@ class Location extends Source
     protected $country;
 
     /**
-     * Массив кодов стран в формате  ISO_3166-1_alpha-2.
-     *
-     * @var string[]|null
-     */
-    protected $country_codes;
-
-    /**
      * Ограничение на сумму наложенного платежа в населенном пункте.
      *
      * @deprecated
@@ -160,18 +153,6 @@ class Location extends Source
     }
 
     /**
-     * @param string $country_code
-     *
-     * @return self
-     */
-    public function setCountryCode($country_code = 'RU')
-    {
-        $this->country_code = $country_code;
-
-        return $this;
-    }
-
-    /**
      * @param mixed $country
      *
      * @return self
@@ -179,18 +160,6 @@ class Location extends Source
     public function setCountry($country)
     {
         $this->country = $country;
-
-        return $this;
-    }
-
-    /**
-     * @param string[] $country_codes
-     *
-     * @return self
-     */
-    public function setCountryCodes($country_codes)
-    {
-        $this->country_codes = $country_codes;
 
         return $this;
     }
@@ -376,7 +345,7 @@ class Location extends Source
     }
 
     /**
-     * Устанавливает настройки локации на Населенные пункты.
+     * Устанавливает настройки фильтрации на Населенные пункты.
      *
      * @return self
      */
@@ -388,7 +357,7 @@ class Location extends Source
     }
 
     /**
-     * Устанавливает настройки локации на Регионы.
+     * Устанавливает настройки фильтрации на Регионы.
      *
      * @return self
      */

@@ -9,8 +9,11 @@
 
 namespace AntistressStore\CdekSDK2\Entity\Responses;
 
+use AntistressStore\CdekSDK2\Traits\TariffTrait;
+
 class TariffListResponse extends Source
 {
+    use TariffTrait;
     /**
      * Режим тарифа.
      *
@@ -45,40 +48,6 @@ class TariffListResponse extends Source
      * @var float
      */
     protected $delivery_sum;
-
-    /**
-     * Минимальное время доставки (в рабочих днях).
-     *
-     * @var int
-     */
-    protected $period_min;
-
-    /**
-     * Максимальное время доставки (в рабочих днях).
-     *
-     * @var int
-     */
-    protected $period_max;
-
-    /**
-     * Получить параметр - максимальное время доставки (в рабочих днях).
-     *
-     * @return int
-     */
-    public function getPeriodMax()
-    {
-        return $this->period_max;
-    }
-
-    /**
-     * Получить параметр - минимальное время доставки (в рабочих днях).
-     *
-     * @return int
-     */
-    public function getPeriodMin()
-    {
-        return $this->period_min;
-    }
 
     /**
      * Получить параметр - стоимость доставки.
