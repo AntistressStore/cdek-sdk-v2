@@ -24,6 +24,7 @@
     - [Информация о доступных геттерах и сеттерах SDK](#информация-о-доступных-геттерах-и-сеттерах-sdk)
     - [Расчёт стоимости доступных тарифов](#расчёт-стоимости-доступных-тарифов)
     - [Расчёт стоимости тарифа](#расчёт-стоимости-тарифа)
+    - [Список доступных тарифов](#список-доступных-тарифов)
     - [Список методов для получения ответа сущности класса TariffResponse](#список-методов-для-получения-ответа-сущности-класса-tariffresponse)
     - [Получение списка ПВЗ](#получение-списка-пвз)
     - [Список методов для установки сущности класса DeliveryPoints](#список-методов-для-установки-сущности-класса-deliverypoints)
@@ -50,8 +51,8 @@
     - [Получение информации о чеках](#получение-информации-о-чеках)
     - [Подписка на вебхуки (Webhooks)](#подписка-на-вебхуки-webhooks)
     - [Получение реестров наложенных платежей](#получение-реестров-наложеных-платежей)
-  - [Известные проблемы](#известные-проблемы)
-  - [Лицензия](#лицензия)
+    - [Известные проблемы](#известные-проблемы)
+    - [Лицензия](#лицензия)
   
 В разработке:
 - Регистрация преалерта
@@ -61,36 +62,37 @@
 
 ## Перечень доступных методов класса `CdekClientV2`
 
-| Задача                                                                                                         | Метод                      | Аргументы      | Ответ                    |
-| -------------------------------------------------------------------------------------------------------------- | -------------------------- | -------------- | ------------------------ |
-| [Cохранение токена](#cохранение-токена)                                                                        | `setMemory`                | `memory`, `fu` | CdekClientV2             |
-| [Получение списка ПВЗ](#получение-списка-пвз)                                                                  | `getDeliveryPoints`        | `filter`       | DeliveryPointsResponse[] |
-| [Получение списка регионов](#получение-списка-регионов)                                                        | `getRegions`               | `filter`       | RegionsResponse[]        |
-| [Получение списка городов](#получение-списка-городов)                                                          | `getCities`                | `filter`       | CitiesResponse[]         |
-| [Расчёт стоимости тарифа](#расчёт-стоимости-тарифа)                                                            | `calculateTariff`          | `tariff`       | TariffResponse           |
-| [Расчёт стоимости списка тарифов](#расчёт-стоимости-доступных-тарифов)                                         | `calculateTariffList`      | `tariff`       | TariffListResponse[]     |
-| [Регистрация заказа](#регистрация-заказа)                                                                      | `createOrder`              | `order`        | EntityResponse           |
-| [Удаление заказа](#удаление-заказа)                                                                            | `deleteOrder`              | `uuid`         | false                    |
-| [Отмена заказа](#отмена-заказа)                                                                                | `deleteOrder`              | `uuid`         | EntityResponse           |
-| [Изменение заказа](#updateOrder)                                                                               | `updateOrder`              | `order`        | EntityResponse           |
-| [Информация о заказе по трек-номеру](#getOrderInfoByCdekNumber)                                                | `getOrderInfoByCdekNumber` | `cdek_number`  | OrderResponse            |
-| [Информация о заказе по ID заказа ИМ](#getOrderInfoByImNumber)                                                 | `getOrderInfoByImNumber`   | `im_number`    | OrderResponse            |
-| [Информация о заказе по uuid](#информация-о-заказе-по-uuid)                                                    | `getOrderInfoByUuid`       | `uuid`         | OrderResponse            |
-| [Формирование ШК-места к заказу](#setBarcode)                                                                  | `setBarcode`               | `barcode`      | EntityResponse           |
-| [Получение сущности накладной к заказу](#getBarcode)                                                           | `getBarcode`               | `uuid`         | PrintResponse            |
-| [Печать pdf файла ШК-места к заказу](#getBarcodePdf)                                                           | `getBarcodePdf`            | `uuid`         | StreamInterface          |
-| [Формирование квитанции к заказу](#список-методов-для-установки-сущности-класса-invoice)                       | `setInvoice`               | `invoice`      | EntityResponse           |
-| [Получение сущности накладной к заказу](#список-методов-для-получения-данных-сущности-класса-invoicepresponse) | `getInvoice`               | `uuid`         | PrintResponse            |
-| [Печать pdf файла накладной(квитанции) к заказу](#печать-квитанции)                                            | `getInvoicePdf`            | `uuid`         | StreamInterface          |
-| [Регистрация договоренности о доставке](#регистрация-договоренностей-о-доставке)                               | `createAgreement`          | `agreement`    | EntityResponse           |
-| [Получение договоренности о доставке](#получение-информации-договоренности-о-доставке)                         | `getAgreement`             | `uuid`         | AgreementResponse        |
-| [Регистрация заявки на вызов курьера](#регистрация-заявки-на-вызов-курьера)                                    | `createIntakes`            | `intakes`      | EntityResponse           |
-| [Получение информации о заявке на вызов курьера](#получение-заявки-на-вызов-курьера)                           | `getIntakes`               | `uuid`         | IntakesResponse          |
-| [Удаление заявки на вызов курьера](#удаление-заявки-на-вызов-курьера)                                          | `deleteIntakes`            | `uuid`         | false                    |
-| [Получение информации о наложенных платежах](#получение-информации-о-переводе-наложенного-платежа)             | `getPayments`              | `date`         | PaymentResponse          |
-| [Получение информации о чеках](#получение-информации-о-чеках)             | `getChecks`                | `check`        | CheckResponse            |
-| [Подписка на вебхуки (Webhooks)](#подписка-на-вебхуки-webhooks)                                                | `setWebhooks`              | `webhooks`     | EntityResponse           |
-| [Получение реестров наложенных платежей](#получение-реестров-наложеных-платежей)                                                | `getRegistries`              | `date`     | RegistryResponse           |
+| Задача                                                                                                         | Метод                      | Аргументы      | Ответ                      |
+| -------------------------------------------------------------------------------------------------------------- | -------------------------- |----------------|----------------------------|
+| [Cохранение токена](#cохранение-токена)                                                                        | `setMemory`                | `memory`, `fu` | CdekClientV2               |
+| [Получение списка ПВЗ](#получение-списка-пвз)                                                                  | `getDeliveryPoints`        | `filter`       | DeliveryPointsResponse[]   |
+| [Получение списка регионов](#получение-списка-регионов)                                                        | `getRegions`               | `filter`       | RegionsResponse[]          |
+| [Получение списка городов](#получение-списка-городов)                                                          | `getCities`                | `filter`       | CitiesResponse[]           |
+| [Расчёт стоимости тарифа](#расчёт-стоимости-тарифа)                                                            | `calculateTariff`          | `tariff`       | TariffResponse             |
+| [Расчёт стоимости списка тарифов](#расчёт-стоимости-доступных-тарифов)                                         | `calculateTariffList`      | `tariff`       | TariffListResponse[]       |
+| [Список доступных тарифов](#список-доступных-тарифов) | `getAvailableTariffs`                           | `-`            | AvailableTariffsResponse[] |
+| [Регистрация заказа](#регистрация-заказа)                                                                      | `createOrder`              | `order`        | EntityResponse             |
+| [Удаление заказа](#удаление-заказа)                                                                            | `deleteOrder`              | `uuid`         | false                      |
+| [Отмена заказа](#отмена-заказа)                                                                                | `deleteOrder`              | `uuid`         | EntityResponse             |
+| [Изменение заказа](#updateOrder)                                                                               | `updateOrder`              | `order`        | EntityResponse             |
+| [Информация о заказе по трек-номеру](#getOrderInfoByCdekNumber)                                                | `getOrderInfoByCdekNumber` | `cdek_number`  | OrderResponse              |
+| [Информация о заказе по ID заказа ИМ](#getOrderInfoByImNumber)                                                 | `getOrderInfoByImNumber`   | `im_number`    | OrderResponse              |
+| [Информация о заказе по uuid](#информация-о-заказе-по-uuid)                                                    | `getOrderInfoByUuid`       | `uuid`         | OrderResponse              |
+| [Формирование ШК-места к заказу](#setBarcode)                                                                  | `setBarcode`               | `barcode`      | EntityResponse             |
+| [Получение сущности накладной к заказу](#getBarcode)                                                           | `getBarcode`               | `uuid`         | PrintResponse              |
+| [Печать pdf файла ШК-места к заказу](#getBarcodePdf)                                                           | `getBarcodePdf`            | `uuid`         | StreamInterface            |
+| [Формирование квитанции к заказу](#список-методов-для-установки-сущности-класса-invoice)                       | `setInvoice`               | `invoice`      | EntityResponse             |
+| [Получение сущности накладной к заказу](#список-методов-для-получения-данных-сущности-класса-invoicepresponse) | `getInvoice`               | `uuid`         | PrintResponse              |
+| [Печать pdf файла накладной(квитанции) к заказу](#печать-квитанции)                                            | `getInvoicePdf`            | `uuid`         | StreamInterface            |
+| [Регистрация договоренности о доставке](#регистрация-договоренностей-о-доставке)                               | `createAgreement`          | `agreement`    | EntityResponse             |
+| [Получение договоренности о доставке](#получение-информации-договоренности-о-доставке)                         | `getAgreement`             | `uuid`         | AgreementResponse          |
+| [Регистрация заявки на вызов курьера](#регистрация-заявки-на-вызов-курьера)                                    | `createIntakes`            | `intakes`      | EntityResponse             |
+| [Получение информации о заявке на вызов курьера](#получение-заявки-на-вызов-курьера)                           | `getIntakes`               | `uuid`         | IntakesResponse            |
+| [Удаление заявки на вызов курьера](#удаление-заявки-на-вызов-курьера)                                          | `deleteIntakes`            | `uuid`         | false                      |
+| [Получение информации о наложенных платежах](#получение-информации-о-переводе-наложенного-платежа)             | `getPayments`              | `date`         | PaymentResponse            |
+| [Получение информации о чеках](#получение-информации-о-чеках)             | `getChecks`                | `check`        | CheckResponse              |
+| [Подписка на вебхуки (Webhooks)](#подписка-на-вебхуки-webhooks)                                                | `setWebhooks`              | `webhooks`     | EntityResponse             |
+| [Получение реестров наложенных платежей](#получение-реестров-наложеных-платежей)                                                | `getRegistries`              | `date`         | RegistryResponse           |
 ****
 ## История
 ### с версии v1.2.3 детальная информация об истории содержится в [релизах](https://github.com/AntistressStore/cdek-sdk-v2/releases)
@@ -270,6 +272,32 @@ $tariff_response = $cdek_client->calculateTariff($tariff); // TariffResponse
       parameter null = null
 
 ```
+### Список доступных тарифов
+
+Запрос выполняется без каких либо параметров. В ответ сервис возвращает список доступных тарифов (AvailableTariffsResponse[])
+
+```php
+$availableTariffsResponse = $cdek_client->getAvailableTariffs();
+
+foreach($availableTariffsResponse as $tariff) {
+    $tariff->getTariffName();
+    $tariff->getWeightMin();
+    $tariff->getWeightMax();
+    $tariff->getWeightCalcMax();
+    $tariff->getLengthMin();
+    $tariff->getLengthMax();
+    $tariff->getWidthMin();
+    $tariff->getWidthMax();
+    $tariff->getHeightMin();
+    $tariff->getHeightMax();
+    $tariff->getOrderTypes();
+    $tariff->getPayerContragentType();
+    $tariff->getSenderContragentType();
+    $tariff->getRecipientContragentType();
+    $tariff->getDeliveryModes();
+    $tariff->getAdditionalOrderTypesParam();
+}
+```
 ### Получение списка ПВЗ
 
 Устанавливаем нужные параметры. Отдаем объект в метод клиента. Метод при успешном запросе возвращает объект класса DeliveryPointsResponse, ниже представлен пример со всеми доступными методами.
@@ -278,33 +306,33 @@ $tariff_response = $cdek_client->calculateTariff($tariff); // TariffResponse
 $requestPvz = (new DeliveryPoints())->setType('PVZ')->setCityCode(44);
 $responsePvz = $cdek_client->getDeliveryPoints($requestPvz);
         
-        foreach ($responsePvz as $item) {
-        $item->getCode();
-        $item->getName();
-        $item->getLocation()->getAddress();
-        $item->getWorkTime();
-        $item->getLocation()->getPostalCode();
-        $item->getWorkTimeList();
-        $item->getWorkTimeExceptions();
-        $item->getNote();
-        $item->getOwnerCode();
-        $item->getNearestStation();
-        $item->getNearestMetroStation();
-        $item->getSite();
-        $item->getEmail();
-        $item->getAddressComment();
-        $item->getOfficeImageList();
-        $item->getDimensions();
-        $item->getHaveCashless();
-        $item->getHaveCash();
-        $item->getAllowedCod();
-        $item->getIsDressingRoom();
-        $item->getIsHandout();
-        $item->getIsReception();
-        $item->getWeightMax();
-        $item->getWeightMin();
-        $item->getTakeOnly();
-        }
+foreach ($responsePvz as $item) {
+    $item->getCode();
+    $item->getName();
+    $item->getLocation()->getAddress();
+    $item->getWorkTime();
+    $item->getLocation()->getPostalCode();
+    $item->getWorkTimeList();
+    $item->getWorkTimeExceptions();
+    $item->getNote();
+    $item->getOwnerCode();
+    $item->getNearestStation();
+    $item->getNearestMetroStation();
+    $item->getSite();
+    $item->getEmail();
+    $item->getAddressComment();
+    $item->getOfficeImageList();
+    $item->getDimensions();
+    $item->getHaveCashless();
+    $item->getHaveCash();
+    $item->getAllowedCod();
+    $item->getIsDressingRoom();
+    $item->getIsHandout();
+    $item->getIsReception();
+    $item->getWeightMax();
+    $item->getWeightMin();
+    $item->getTakeOnly();
+}
 ```
 ### Список методов для установки сущности класса DeliveryPoints
 Поддерживается установка следующих параметров запроса:
