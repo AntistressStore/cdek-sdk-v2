@@ -18,8 +18,15 @@ use AntistressStore\CdekSDK2\Traits\{CommonTrait, PackageTrait};
 class IntakesResponse extends Source
 {
     use CommonTrait, PackageTrait {
+        CommonTrait::getNumber insteadof PackageTrait;
+        PackageTrait::getNumber as getPackageNumber;
+
         CommonTrait::getComment insteadof PackageTrait;
-        CommonTrait::setComment insteadof PackageTrait; }
+        PackageTrait::getComment as getPackageComment;
+
+        CommonTrait::setComment insteadof PackageTrait;
+        PackageTrait::setComment as setPackageComment;
+    }
     use IntakesTrait;
 
     /**

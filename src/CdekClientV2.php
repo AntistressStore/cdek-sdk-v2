@@ -83,6 +83,11 @@ final class CdekClientV2
     /** @var GuzzleClient */
     private $http;
 
+    public function setHttp($http){
+        $this->http = $http;
+        return $this;
+    }
+
     /**
      * Конструктор клиента Guzzle.
      *

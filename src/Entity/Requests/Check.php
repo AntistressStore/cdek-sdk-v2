@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (c) Antistress.Store® 2024. All rights reserved.
  * See LICENSE.md for license details.
@@ -12,7 +13,7 @@ use AntistressStore\CdekSDK2\Traits\CommonTrait;
 
 /**
  * Class Check.
- * используется для получения информации о чеке по заказу или за выбранный день. 
+ * используется для получения информации о чеке по заказу или за выбранный день.
  */
 class Check extends Source
 {
@@ -37,5 +38,13 @@ class Check extends Source
         $this->date = $date;
 
         return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }

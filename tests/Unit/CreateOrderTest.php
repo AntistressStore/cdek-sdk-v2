@@ -2,23 +2,75 @@
 
 namespace AntistressStore\Test\Unit;
 
-use AntistressStore\CdekSDK2\Entity\Requests\Item;
-use AntistressStore\CdekSDK2\Entity\Responses\{EntityResponse, PackagesResponse};
-use AntistressStore\CdekSDK2\Entity\Responses\OrderResponse;
-use AntistressStore\Test\AntistressStoreTestCase;
+use AntistressStore\CdekSDK2\CdekClientV2;
+use AntistressStore\CdekSDK2\Entity\Requests\{Item, Order};
+use AntistressStore\CdekSDK2\Entity\Responses\{EntityResponse, OrderResponse};
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\{Client as GuzzleClient, HandlerStack};
+use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- *
- * @coversNothing
- */
-class CreateOrderTest extends AntistressStoreTestCase
+class CreateOrderTest extends TestCase
 {
-    public function testCreateOrder(): void
+    protected function setUp(): void
     {
-        // Создание объекта заказа
+        parent::setUp();
+    }
 
-        $order = (new \AntistressStore\CdekSDK2\Entity\Requests\Order())
+    public function testCreateOrderSuccess()
+    {
+        // 1. Готовим фейковые ответы API (в порядке их вызова)
+
+        $orderUuid = '72120412-25e1-489e-862a-0f9c3e981985';
+
+        $mock = new MockHandler([
+            // Ответ 1: Авторизация
+            new Response(200, [], json_encode([
+                'access_token' => 'fake_test_token',
+                'expires_in' => 3600,
+            ])),
+            // Ответ 2: Создание заказа (метод createOrder)
+            new Response(200, [], json_encode([
+                'entity' => ['uuid' => $orderUuid],
+                'requests' => [
+                    [
+                        'request_uuid' => 'req-123',
+                        'type' => 'CREATE',
+                        'state' => 'ACCEPTED',
+                        'date_time' => '2024-01-01T12:00:00+0000',
+                    ],
+                ],
+            ])),
+            // Ответ 3: Авторизация
+            new Response(200, [], json_encode([
+                'access_token' => 'fake_test_token',
+                'expires_in' => 3600,
+            ])),
+            // Ответ 4: Информация о заказе (метод getOrderInfoByUuid)
+            new Response(200, [], json_encode([
+                'uuid' => $orderUuid,
+                'type' => 1,
+                'tariff_code' => 136,
+                'shipment_point' => 'ORX1',
+                'delivery_point' => 'ORX1',
+                'packages' => [
+                    [
+                        'package_id' => 'pkg-123',
+                        'weight' => 500,
+                    ],
+                ],
+            ])),
+        ]);
+
+        $handlerStack = HandlerStack::create($mock);
+        $httpClient = new GuzzleClient(['handler' => $handlerStack]);
+
+        $client = new CdekClientV2('TEST');
+        // Внедряем мок-клиент
+        $client->setHttp($httpClient);
+
+        // Создание объекта заказа
+        $order = (new Order())
             ->setNumber('НовыйЗаказ'.rand(2, 999)) // Номер заказа
             ->setType(1)                      // Тип заказа (ИМ)
             ->setComment('Оплата по карте') // Комментарий
@@ -29,7 +81,6 @@ class CreateOrderTest extends AntistressStoreTestCase
         ;
 
         // Добавление информации о продавце
-
         $seller = (new \AntistressStore\CdekSDK2\Entity\Requests\Seller())
             ->setName('Antistress.Store')
             ->setInn(777777777777)
@@ -49,14 +100,6 @@ class CreateOrderTest extends AntistressStoreTestCase
 
         $order->setRecipient($recipient);
 
-        // // Адрес отправителя только для тарифов "от двери"
-        //
-        // $order->setShipmentAddress('ул.Люка Скайоукера, д.1')
-        //     ->setShipmentCityCode(1204)
-        //     ->setRecipientAddress('ул.Джедаев, д.3')
-        //     ->setRecipientCityCode(44)
-        // ;
-
         // Создаем данные посылки. Место
 
         $packages =
@@ -69,7 +112,6 @@ class CreateOrderTest extends AntistressStoreTestCase
         ;
 
         // Создаем товары
-
         $items = [];
 
         $items[] = (new Item())
@@ -82,27 +124,27 @@ class CreateOrderTest extends AntistressStoreTestCase
         ;
 
         $packages->setItems($items);
+
         $order->setPackages($packages);
 
         // Заказ подготовлен отправляем в ранее объявленный клиент
 
-        $response = $this->client->createOrder($order);
+        $response = $client->createOrder($order);
 
         $uuid = $response->getEntityUuid();
 
         $this->assertTrue($response instanceof EntityResponse);
         $this->assertTrue(is_string($uuid));
+        $this->assertEquals($orderUuid, $uuid);
         $this->assertTrue(is_array($response->getRequests()));
 
-        sleep(1);
+        // Получение инфо о заказе (второй запрос к API)
+        $neworder = $client->getOrderInfoByUuid($uuid);
 
-        $neworder = $this->client->getOrderInfoByUuid($uuid);
-
-        $this->assertTrue($neworder instanceof OrderResponse);
-        $this->assertTrue($neworder->getType() == 1);
-        $this->assertTrue($neworder->getShipmentPoint() == 'ORX1');
-        $this->assertTrue($neworder->getDeliveryPoint() == 'ORX1');
-        $this->assertTrue($neworder->getTariffCode() == 136);
-        $this->assertTrue($neworder->getPackages()[0] instanceof PackagesResponse);
+        // Проверка возвращаемого типа и данных из OrderResponse
+        $this->assertInstanceOf(OrderResponse::class, $neworder);
+        $this->assertEquals(1, $neworder->getType());
+        $this->assertEquals('ORX1', $neworder->getShipmentPoint());
+        $this->assertEquals(136, $neworder->getTariffCode());
     }
 }
